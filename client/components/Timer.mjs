@@ -49,6 +49,8 @@ export default class TimerComponent extends HTMLElement {
     }
 
     changeTimerState(event) {
+        /* Currently taking an ostrich solution on the fact that you can
+        click the start button to no effect while the timer is 0 */
         this.state = event.target.textContent;
         switch (this.state) {
             case "Start":
@@ -62,7 +64,6 @@ export default class TimerComponent extends HTMLElement {
                 this.reset.disabled = false;
                 break;
             case "Reset":
-            default:
                 break;
         }
     }
@@ -77,6 +78,8 @@ export default class TimerComponent extends HTMLElement {
         switch (this.state) {
             case "Start":
                 this.value -= elapsed;
+                // Once the timer has hit 0 click the pause button ourselves
+                if (this.value <= 0) this.pause.dispatchEvent(new Event("click"));
                 break;
             case "Reset":
                 this.value = this?.workout?.duration ?? 0;
