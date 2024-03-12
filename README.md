@@ -5,10 +5,10 @@ HIIT PWA Web App - L5 Solo Project for Web Programming
 
 ### Exercise
 An exercise is a single segment of a workout:
-- `type`: `String` - the 
+- `type`: `String` - 
 - `class`: `String` - 
-- `duration`: `Number`
-- `rest`: `Number` - the milliseconds spent resting after the exercise.
+- `duration`: `Number` -
+- `rest`: `Number` - milliseconds spent resting after the exercise.
 
 ### Workout
 A workout is a set of exercies

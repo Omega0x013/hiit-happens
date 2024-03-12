@@ -1,6 +1,6 @@
 const CACHE_NAME = "hiit-v1";
 
-self.addEventListener("fetch", async e => {
+self.addEventListener("fetch", e => {
     if (e.request.url.match(/^\/api\//g)) {
         // handle the /api/ route specifically
         switch (e.request.method) {
@@ -11,25 +11,24 @@ self.addEventListener("fetch", async e => {
                 return;
         }
     } else {
-        e.respondWith(staleWhileRevalidate(e.request));
+        e.respondWith(networkThenCache(e.request));
     }
 });
 
 /**
- * Return the cached response and update on the network if possible
- * @param {Request} req 
+ * Employs the network-fallback-to-cache strategy to fetch the response to a request.
+ * @param {Request} request 
+ * @returns {Response}
  */
-async function staleWhileRevalidate(req) {
+async function networkThenCache(request) {
+    // Ask the network first, then hit the cache if we're offline.
     const cache = await caches.open(CACHE_NAME);
-    const cachedResponse = await cache.match(req);
-
-    // save the network response; intentionally do nothing on error
-    let networkResponse;
+    let response;
     try {
-        networkResponse = await fetch(req);
-        cache.put(req, networkResponse);
-    } finally {
-        // we don't care about the error
-        return cachedResponse || networkResponse;
+        response = await fetch(request);
+        cache.put(request, response.clone());
+    } catch (_error) {
+        response = await cache.match(request);
     }
+    return response;
 }
