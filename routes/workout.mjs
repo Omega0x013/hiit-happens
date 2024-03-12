@@ -4,7 +4,7 @@ const router = new Router();
 
 router.get('/:id', (req, res) => {
     res.send(JSON.stringify({
-        duration: 45000,
+        duration: 12000,
         name: "Example Workout"
     }))
 });
