@@ -4,13 +4,11 @@ HIIT PWA Web App - L5 Solo Project for Web Programming
 ## Data Structures
 
 ### Exercise
-An exercise is a single segment of a workout:
-- `type`: `String` - 
-- `class`: `String` - 
-- `duration`: `Number` -
-- `rest`: `Number` - milliseconds spent resting after the exercise.
+- `type` - exercise type: situps, running, stepping etc
+- `duration` - seconds spent exercising
+- `rest` - seconds spent resting after exercise
 
 ### Workout
-A workout is a set of exercies
-- `exercises`: `Array<Exercise>` - the set of exercises
-- `lastUpdated`: `Date` - the metadata used to decide which version of the exercise (local/upstream) is newest.
+- `name`
+- `exercises`: `Array<Exercise>`
+- `lastUpdated`

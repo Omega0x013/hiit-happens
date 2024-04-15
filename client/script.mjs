@@ -2,16 +2,15 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register("/serviceworker.js");
 }
 
-const workouts = document.querySelector("#workouts");
+// // There's only one timer on the page, when the dialog is opened, the timer is modified.
+// const dialog = document.querySelector('dialog');
+// const timer = document.querySelector('timer-component');
 
-try {
-    const res = await fetch(`/api/list/${1}`)
-    const body = await res.json();
-    for (const id of body) {
-        const w = document.createElement("workout-component");
-        w.dataset.id = id;
-        workouts.append(w);
-    }
-} catch (e) {
-    console.error(e.message);
-}
+// localStorage.setItem("abc", JSON.stringify({"name": "b", exercises: [{type: "sprint", duration: 5, rest: 2}, {type: "sprint", duration: 3, rest: 4}, {type: "sprint", duration: 9, rest: 1}]}));
+
+const main = document.querySelector('main');
+const workout1 = document.createElement('workout-tile');
+workout1.dataset.id = "abc";
+const workout2 = workout1.cloneNode(true);
+
+main.append(workout1, workout2);
