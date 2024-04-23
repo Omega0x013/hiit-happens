@@ -20,9 +20,9 @@ export default class WorkoutTile extends HTMLElement {
 
                 this.shadowRoot.querySelector('h2').innerText = name;
                 this.shadowRoot.querySelector('span').innerText = name;
-                this.shadowRoot.querySelector('h3').innerText = exercises?.reduce((p, c) => p + c.duration + c.rest, 0);
+                this.shadowRoot.querySelector('h3').innerText = Math.floor(exercises?.reduce((p, c) => p + c.duration, 0) / 1000);
 
-                // Propogate any changes to our children
+                // Propogate any changes to our children, using their own attributeChangedCallback
                 for (const dialog of this.shadowRoot.querySelectorAll('dialog')) {
                     dialog.dataset.id = newValue;
                 }
@@ -46,7 +46,7 @@ export default class WorkoutTile extends HTMLElement {
         runButton.addEventListener('click', () => timerDialog.showModal());
 
         editButton.addEventListener('click', () => editDialog.showModal());
-        editDialog.addEventListener('close', () => this.attributeChangedCallback("data-id", null, this.dataset.id))
+        editDialog.addEventListener('close', () => this.attributeChangedCallback("data-id", null, this.dataset.id));
         
         // TODO: #21 move delete button into edit dialog
         deleteButton.addEventListener('click', () => deleteDialog.showModal());

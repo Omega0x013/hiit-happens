@@ -19,8 +19,6 @@ export default class TimerDialog extends HTMLDialogElement {
                 this.index = 0;
                 this.previous = 0;
                 this.paused = true;
-                this.meter.value = 1;
-                this.meter.classList.add('active');
         }
     }
 
@@ -34,7 +32,6 @@ export default class TimerDialog extends HTMLDialogElement {
         this.addEventListener('close', () => this.paused = true);
 
         this.meter = this.querySelector('meter');
-
         this.p = this.querySelector('p');
 
         this.button = this.querySelector('button');
@@ -45,42 +42,25 @@ export default class TimerDialog extends HTMLDialogElement {
     }
 
     animationFrame(now) {
-        // Short-circuit drawing if we're paused, since nothing will change.
-        if (this.paused) {
-            this.previous = now;
-            requestAnimationFrame(this.boundAnimationFrame);
-            return;
-        }
-
-        this.elapsed += now - this.previous;
+        // Don't move the timer on if we're paused
+        if (!this.paused)
+            this.elapsed += now - this.previous;
         this.previous = now;
 
-        let { type, duration, rest } = this.exercises?.[this.index];
-        duration *= 1000, rest *= 1000;
-        const total = duration + rest;
+        let {type, duration} = this.exercises[this.index];
 
-        if (this.elapsed < duration) {
-            // We're in the active section, therefore the meter regresses
-            this.meter.value = (duration - this.elapsed) / duration;
-            this.meter.classList.add('active');
-        }
-        else if (this.elapsed < total) {
-            // We're in the rest section, therefore the meter fills
-            this.meter.value = (this.elapsed - duration) / rest;
-            this.meter.classList.remove('active');
-            type = 'rest';
-        }
-        else {
-            // We've hit the end of the section, progress to the next exercise
-            this.elapsed -= total;
-            this.index += 1;
-            if (this.index >= this.exercises?.length) {
-                // We've hit the end of the workout, loop back around to 0.
+        // Current segment has expired
+        if (this.elapsed >= duration) {
+            this.index++;
+            this.elapsed -= duration;
+            // Exercise is over, reset to zero
+            if (this.index >= this.exercises.length) {
                 this.paused = true;
                 this.index = 0;
             }
-        }
+        };
 
+        this.meter.value = (duration - this.elapsed) / duration;
         this.p.textContent = type;
 
         requestAnimationFrame(this.boundAnimationFrame);
