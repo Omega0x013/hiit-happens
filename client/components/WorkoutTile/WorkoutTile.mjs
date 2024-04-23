@@ -9,30 +9,56 @@ export default class WorkoutTile extends HTMLElement {
         super();
     }
 
+    static observedAttributes = ["data-id"];
+
+    async attributeChangedCallback(name, _oldValue, newValue) {
+        switch (name) {
+            case "data-id":
+                if (!this.shadowRoot) return;
+
+                const {name: name, exercises: exercises} = JSON.parse(localStorage.getItem(newValue));
+
+                this.shadowRoot.querySelector('h2').innerText = name;
+                this.shadowRoot.querySelector('span').innerText = name;
+                this.shadowRoot.querySelector('h3').innerText = exercises?.reduce((p, c) => p + c.duration + c.rest, 0);
+
+                // Propogate any changes to our children
+                for (const dialog of this.shadowRoot.querySelectorAll('dialog')) {
+                    dialog.dataset.id = newValue;
+                }
+
+                break;
+        }
+    }
+
     async connectedCallback() {
-        this.attachShadow({mode: "open"});
+        this.attachShadow({ mode: "open" });
 
         /* I was originally attaching the content of a template element stored in WorkoutTile.html
         to the shadow DOM. That was needless indirection since it still used innerHTML */
         const template = await fetch(import.meta.resolve('./WorkoutTile.html'));
         this.shadowRoot.innerHTML = await template.text();
 
-        const [runButton, editButton, deleteButton] = this.shadowRoot.querySelectorAll('button');
-        const [workoutDialog, timerDialog, deleteDialog] = this.shadowRoot.querySelectorAll('dialog');
-
         // Bind the buttons and dialogs together
-        runButton.addEventListener('click', () => workoutDialog.showModal());
-        editButton.addEventListener('click', () => timerDialog.showModal());
+        const [runButton, editButton, deleteButton] = this.shadowRoot.querySelectorAll('button');
+        const [editDialog, timerDialog, deleteDialog] = this.shadowRoot.querySelectorAll('dialog');
+
+        runButton.addEventListener('click', () => timerDialog.showModal());
+
+        editButton.addEventListener('click', () => editDialog.showModal());
+        editDialog.addEventListener('close', () => this.attributeChangedCallback("data-id", null, this.dataset.id))
+        
+        // TODO: #21 move delete button into edit dialog
         deleteButton.addEventListener('click', () => deleteDialog.showModal());
         deleteDialog.addEventListener('close', () => {
-            if (deleteDialog.returnValue === "Confirm")
+            if (deleteDialog.returnValue === "Confirm") {
                 localStorage.removeItem(this.dataset.id);
+                this.remove();
+            }
         });
 
-        // Copy over the workout id to the child custom elements, causing them to update their content
-        for (const dialog of [workoutDialog, timerDialog]) {
-            dialog.dataset.id = this.dataset.id;
-        }
+        // Trigger a content refresh, since we now have elements to slot the content into
+        this.attributeChangedCallback("data-id", null, this.dataset.id);
     }
 }
 

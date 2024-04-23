@@ -1,12 +1,21 @@
+<style>
+    input[type=submit] {
+        padding: .5em;
+    }
+    input[name=yes] {
+        background-color: lightseagreen;
+    }
+</style>
 <h2>Title</h2>
 <h3>Duration</h3>
 <button>Run</button>
 <button>Edit</button>
 <button>Delete</button>
-<dialog is="workout-dialog"></dialog>
-<dialog is="timer-dialog"></dialog>
+<dialog is="edit-dialog"></dialog>
+<dialog is="timer-dialog" paused="true"></dialog>
 <dialog>
     <form method=dialog>
+        <input type="submit" name="close" value="&times;">
         <p>Delete <span>NAME</span>?</p>
         <input type="submit" name="no" value="Cancel">
         <input type="submit" name="yes" value="Confirm">
