@@ -14,7 +14,9 @@ export default class WorkoutTile extends HTMLElement {
 
         this.shadowRoot.querySelector('h2').innerText = name;
         this.shadowRoot.querySelector('span').innerText = name;
-        this.shadowRoot.querySelector('h3').innerText = Math.floor(exercises?.reduce((p, c) => p + c.duration, 0) / 1000);
+        const ms = exercises?.reduce((p, c) => p + c.duration, 0);
+        const [minutes, seconds] = [Math.floor(ms / 1000 / 60), Math.floor(ms / 1000 % 60)];
+        this.shadowRoot.querySelector('h3').innerText = `${minutes}m ${seconds}s`;
 
         // When this tile is updated, call the child event handlers without bubbling
         const event = new Event("update", {bubbles: false});

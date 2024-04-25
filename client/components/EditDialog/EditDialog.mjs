@@ -34,12 +34,6 @@ export default class EditDialog extends HTMLDialogElement {
 
         const name = this.nameInput.value;
 
-        // let exercises = [
-        //     {type: "lie down", duration: 4000},
-        //     {type: "roll over", duration: 6000},
-        //     {type: "sleep", duration: 47000}
-        // ];
-
         this.workout = {name: name, exercises: this.workout.exercises};
 
         /**

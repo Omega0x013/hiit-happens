@@ -2,8 +2,8 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register("/serviceworker.js");
 }
 
-localStorage.setItem("abc", JSON.stringify({"name": "b", exercises: [{type: "sprint", duration: 5000}, {type: "rest", duration: 3000}, {type: "sprint", duration: 9000}]}));
-localStorage.setItem("cbd", JSON.stringify({"name": "hello", exercises: [{type: "sprint", duration: 5000}]}));
+localStorage.setItem("abc", JSON.stringify({"name": "full tilt", exercises: [{type: "walk", duration: 15000}, {type: "rest", duration: 3000}, {type: "sprint", duration: 9000}]}));
+localStorage.setItem("cbd", JSON.stringify({"name": "low effort", exercises: [{type: "", duration: 5000}]}));
 
 const main = document.querySelector('main');
 
