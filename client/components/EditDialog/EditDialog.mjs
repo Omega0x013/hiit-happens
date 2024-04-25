@@ -4,7 +4,7 @@ export default class EditDialog extends HTMLDialogElement {
     }
 
     update(_event) {
-        const {name, exercises} = this.workout;
+        const { name, exercises } = this.workout;
         this.nameInput.value = name;
     }
 
@@ -24,6 +24,7 @@ export default class EditDialog extends HTMLDialogElement {
         this.addEventListener('update', this.update.bind(this));
 
         this.nameInput = this.querySelector('input[name=name]');
+        this.figure = this.querySelector('figure');
 
         this.update();
     }
@@ -34,13 +35,13 @@ export default class EditDialog extends HTMLDialogElement {
 
         const name = this.nameInput.value;
 
-        this.workout = {name: name, exercises: this.workout.exercises};
+        this.workout = { name: name, exercises: this.workout.exercises };
 
         /**
          * Dispatch an event to ourselves which bubbles up to the tile,
          * causing it to update its own content and that of our neighbors.
          */
-        const event = new Event("update", {bubbles: true});
+        const event = new Event("update", { bubbles: true });
         this.dispatchEvent(event);
     }
 }

@@ -5,10 +5,21 @@
     input[name=yes] {
         background-color: lightseagreen;
     }
+    form {
+        display: flex;
+        flex-direction: column;
+    }
 </style>
 <form method=dialog>
-    Name: <input type="text" name="name">
+    <label>Name: <input type="text" name="name"></label>
+    <hr>
     <figure></figure>
+    <label><input type="checkbox" name="draggable"> Draggable</label>
+    <input type="button" name="add" value="Add">
+    <hr>
     <input type="submit" name="yes" value="Save">
     <input type="submit" name="no" value="Cancel">
 </form>
+<dialog>
+    
+</dialog>
