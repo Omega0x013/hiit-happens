@@ -9,26 +9,22 @@ export default class WorkoutTile extends HTMLElement {
         super();
     }
 
-    static observedAttributes = ["data-id"];
+    update(_event) {
+        const { name, exercises } = this.workout;
 
-    async attributeChangedCallback(name, _oldValue, newValue) {
-        switch (name) {
-            case "data-id":
-                if (!this.shadowRoot) return;
+        this.shadowRoot.querySelector('h2').innerText = name;
+        this.shadowRoot.querySelector('span').innerText = name;
+        this.shadowRoot.querySelector('h3').innerText = Math.floor(exercises?.reduce((p, c) => p + c.duration, 0) / 1000);
 
-                const {name: name, exercises: exercises} = JSON.parse(localStorage.getItem(newValue));
-
-                this.shadowRoot.querySelector('h2').innerText = name;
-                this.shadowRoot.querySelector('span').innerText = name;
-                this.shadowRoot.querySelector('h3').innerText = Math.floor(exercises?.reduce((p, c) => p + c.duration, 0) / 1000);
-
-                // Propogate any changes to our children, using their own attributeChangedCallback
-                for (const dialog of this.shadowRoot.querySelectorAll('dialog')) {
-                    dialog.dataset.id = newValue;
-                }
-
-                break;
+        // When this tile is updated, call the child event handlers without bubbling
+        const event = new Event("update", {bubbles: false});
+        for (const dialog of this.shadowRoot.querySelectorAll('dialog')) {
+            dialog.dispatchEvent(event);
         }
+    }
+
+    get workout() {
+        return JSON.parse(localStorage.getItem(this.dataset.id));
     }
 
     async connectedCallback() {
@@ -43,12 +39,15 @@ export default class WorkoutTile extends HTMLElement {
         const [runButton, editButton, deleteButton] = this.shadowRoot.querySelectorAll('button');
         const [editDialog, timerDialog, deleteDialog] = this.shadowRoot.querySelectorAll('dialog');
 
+        editDialog.dataset.id = this.dataset.id;
+        timerDialog.dataset.id = this.dataset.id;
+
+        this.shadowRoot.addEventListener('update', this.update.bind(this));
+
         runButton.addEventListener('click', () => timerDialog.showModal());
 
         editButton.addEventListener('click', () => editDialog.showModal());
-        editDialog.addEventListener('close', () => this.attributeChangedCallback("data-id", null, this.dataset.id));
-        
-        // TODO: #21 move delete button into edit dialog
+
         deleteButton.addEventListener('click', () => deleteDialog.showModal());
         deleteDialog.addEventListener('close', () => {
             if (deleteDialog.returnValue === "Confirm") {
@@ -57,8 +56,7 @@ export default class WorkoutTile extends HTMLElement {
             }
         });
 
-        // Trigger a content refresh, since we now have elements to slot the content into
-        this.attributeChangedCallback("data-id", null, this.dataset.id);
+        this.update();
     }
 }
 

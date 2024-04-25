@@ -3,37 +3,51 @@ export default class EditDialog extends HTMLDialogElement {
         super();
     }
 
+    update(_event) {
+        const {name, exercises} = this.workout;
+        this.nameInput.value = name;
+    }
 
-    static observedAttributes = ["data-id"];
+    get workout() {
+        return JSON.parse(localStorage.getItem(this.dataset.id));
+    }
 
-    async attributeChangedCallback(name, _oldValue, newValue) {
-        switch (name) {
-            case "data-id":
-                // Short-circuit if we don't have any elements to write the content to yet
-                if (!this.h1) return;
-
-                const workout = JSON.parse(localStorage.getItem(newValue));
-
-                this.h1.innerText = workout?.name;
-                this.ul.innerHTML = "";
-
-                for (const exercise of workout?.exercises ?? []) {
-                    // TODO: #19 construct a draggable list
-                }
-                break;
-        }
+    set workout(workout) {
+        localStorage.setItem(this.dataset.id, JSON.stringify(workout));
     }
 
     async connectedCallback() {
         const template = await fetch(import.meta.resolve('./EditDialog.html'));
         this.innerHTML = await template.text();
 
-        // Force the content of the element to update once the element is attached to the page
-        this.attributeChangedCallback("data-id", null, this.dataset.id);
+        this.addEventListener('close', this.closeDialogCallback.bind(this));
+        this.addEventListener('update', this.update.bind(this));
+
+        this.nameInput = this.querySelector('input[name=name]');
+
+        this.update();
     }
 
     closeDialogCallback(_event) {
         // TODO: #20 update localStorage based on the contents of the edit dialog
+        if (this.returnValue !== "Save") return;
+
+        const name = this.nameInput.value;
+
+        // let exercises = [
+        //     {type: "lie down", duration: 4000},
+        //     {type: "roll over", duration: 6000},
+        //     {type: "sleep", duration: 47000}
+        // ];
+
+        this.workout = {name: name, exercises: this.workout.exercises};
+
+        /**
+         * Dispatch an event to ourselves which bubbles up to the tile,
+         * causing it to update its own content and that of our neighbors.
+         */
+        const event = new Event("update", {bubbles: true});
+        this.dispatchEvent(event);
     }
 }
 

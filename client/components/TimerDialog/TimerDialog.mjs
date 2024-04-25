@@ -1,25 +1,17 @@
 export default class TimerDialog extends HTMLDialogElement {
     constructor() {
         super();
+        this.elapsed = 0;
+        this.index = 0;
+        this.previous = 0;
+        this.paused = true;
+        this.exercises = [];
     }
 
-    static observedAttributes = ["data-id"];
-
-    async attributeChangedCallback(name, _oldValue, newValue) {
-        switch (name) {
-            case "data-id":
-                // Short-circuit if we don't have anything to update
-                if (!this.children.length) return;
-
-                const { name: name, exercises: exercises } = JSON.parse(localStorage.getItem(newValue));
-
-                this.exercises = exercises ?? [];
-                this.querySelector('h1').innerText = name;
-                this.elapsed = 0;
-                this.index = 0;
-                this.previous = 0;
-                this.paused = true;
-        }
+    update(_event) {
+        const {name, exercises} = JSON.parse(localStorage.getItem(this.dataset.id));
+        this.querySelector('h1').textContent = name;
+        this.exercises = exercises;
     }
 
     async connectedCallback() {
@@ -30,6 +22,7 @@ export default class TimerDialog extends HTMLDialogElement {
         requestAnimationFrame(this.boundAnimationFrame);
 
         this.addEventListener('close', () => this.paused = true);
+        this.addEventListener('update', this.update.bind(this));
 
         this.meter = this.querySelector('meter');
         this.p = this.querySelector('p');
@@ -37,12 +30,11 @@ export default class TimerDialog extends HTMLDialogElement {
         this.button = this.querySelector('button');
         this.button.addEventListener('click', () => this.paused = !this.paused);
 
-        // Intentionally use side effects
-        this.attributeChangedCallback("data-id", null, this.dataset.id);
+        this.update();
     }
 
     animationFrame(now) {
-        // Don't move the timer on if we're paused
+        // Only progress the timer if we're not paused
         if (!this.paused)
             this.elapsed += now - this.previous;
         this.previous = now;
@@ -57,6 +49,7 @@ export default class TimerDialog extends HTMLDialogElement {
             if (this.index >= this.exercises.length) {
                 this.paused = true;
                 this.index = 0;
+                this.elapsed = 0;
             }
         };
 

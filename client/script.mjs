@@ -6,9 +6,9 @@ localStorage.setItem("abc", JSON.stringify({"name": "b", exercises: [{type: "spr
 localStorage.setItem("cbd", JSON.stringify({"name": "hello", exercises: [{type: "sprint", duration: 5000}]}));
 
 const main = document.querySelector('main');
-const workout1 = document.createElement('workout-tile');
-workout1.dataset.id = "abc";
-const workout2 = document.createElement('workout-tile');
-workout2.dataset.id = "cbd";
 
-main.append(workout1, workout2);
+for (let i = 0; i < localStorage.length; i++) {
+    const workout = document.createElement('workout-tile');
+    workout.dataset.id = localStorage.key(i);
+    main.append(workout);
+}
