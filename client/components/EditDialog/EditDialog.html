@@ -1,25 +1,31 @@
 <style>
-    input[type=submit] {
+    input[type=submit],
+    input[type=button] {
         padding: .5em;
     }
+
     input[name=yes] {
         background-color: lightseagreen;
     }
+
     form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    figure {
         display: flex;
         flex-direction: column;
     }
 </style>
 <form method=dialog>
     <label>Name: <input type="text" name="name"></label>
-    <hr>
-    <figure></figure>
-    <label><input type="checkbox" name="draggable"> Draggable</label>
-    <input type="button" name="add" value="Add">
-    <hr>
+    <figure>
+        <ul></ul>
+        <input type="button" name="add" value="+">
+        <label><input type="checkbox" name="draggable">Reorder</label>
+    </figure>
     <input type="submit" name="yes" value="Save">
     <input type="submit" name="no" value="Cancel">
 </form>
-<dialog>
-    
-</dialog>
+<dialog is="exercise-dialog"></dialog>
