@@ -12,21 +12,38 @@ export default class EditDialog extends HTMLDialogElement {
     this.figure = this.querySelector('figure');
     this.ul = this.figure.querySelector('ul');
 
-    this.exerciseDialog = this.querySelector('dialog');
-    this.querySelector('input[name=add]').addEventListener('click', () => this.exerciseDialog.showModal());
+    this.add = this.querySelector('input[name=add]');
+    this.add.addEventListener('click', () => (this.ul.append(EditDialog.makeLi('', null))));
 
     this.update();
+  }
+
+  static makeLi(type, duration) {
+    const typeInput = document.createElement('input');
+    typeInput.type = 'text';
+    typeInput.value = type;
+
+    const durationInput = document.createElement('input');
+    durationInput.type = 'number';
+    durationInput.value = Math.floor(duration / 1000);
+
+    const li = document.createElement('li');
+    li.append(typeInput, durationInput);
+    return li;
   }
 
   update() {
     const { name, exercises } = this.workout;
     this.nameInput.value = name;
 
-    this.ul.innerHTML = '';
+    // Delete the previous entries if they exist.
+    for (const li of this.ul.querySelectorAll('li')) {
+      li.remove();
+    }
+
+    // Add a new set of entries
     for (const { type, duration } of exercises) {
-      const li = document.createElement('li');
-      li.textContent = `${type}: ${duration}`;
-      this.ul.append(li);
+      this.ul.append(EditDialog.makeLi(type, duration));
     }
   }
 
@@ -44,8 +61,8 @@ export default class EditDialog extends HTMLDialogElement {
 
     const exercises = [];
     for (const li of this.ul.querySelectorAll('li')) {
-      const [type, duration] = li.textContent.split(':', 2);
-      exercises.push({ type: type.trim(), duration: +duration.trim() });
+      const [type, duration] = li.querySelectorAll('input');
+      exercises.push({ type: type.value.trim(), duration: duration.value * 1000 });
     }
 
     this.workout = { name: this.nameInput.value, exercises };
