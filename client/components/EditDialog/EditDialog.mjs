@@ -8,27 +8,23 @@ export default class EditDialog extends HTMLDialogElement {
 
     // TODO: #25 edit dialog drag reorder
 
+    this.template = this.querySelector('template');
+
     this.nameInput = this.querySelector('input[name=name]');
     this.figure = this.querySelector('figure');
     this.ul = this.figure.querySelector('ul');
 
     this.add = this.querySelector('input[name=add]');
-    this.add.addEventListener('click', () => (this.ul.append(EditDialog.makeLi('', null))));
+    this.add.addEventListener('click', () => this.ul.append(this.makeLi(null, 1000)));
 
     this.update();
   }
 
-  static makeLi(type, duration) {
-    const typeInput = document.createElement('input');
-    typeInput.type = 'text';
-    typeInput.value = type;
-
-    const durationInput = document.createElement('input');
-    durationInput.type = 'number';
-    durationInput.value = Math.floor(duration / 1000);
-
-    const li = document.createElement('li');
-    li.append(typeInput, durationInput);
+  makeLi(type, duration) {
+    const li = this.template.content.cloneNode(true).querySelector('li');
+    li.querySelector('input[name=type]').value = type;
+    li.querySelector('input[name=duration]').value = Math.floor(duration / 1000);
+    li.querySelector('input[type=button]').addEventListener('click', () => li.remove());
     return li;
   }
 
@@ -43,7 +39,7 @@ export default class EditDialog extends HTMLDialogElement {
 
     // Add a new set of entries
     for (const { type, duration } of exercises) {
-      this.ul.append(EditDialog.makeLi(type, duration));
+      this.ul.append(this.makeLi(type, duration));
     }
   }
 
