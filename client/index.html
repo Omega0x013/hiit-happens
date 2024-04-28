@@ -8,15 +8,30 @@
 <script type="module" src="components/EditDialog/EditDialog.mjs" async></script>
 <script type="module" src="components/TimerDialog/TimerDialog.mjs" async></script>
 <script type="module" src="script.mjs" defer></script>
+<style>
+    input[type=submit] {
+        padding: .5em;
+    }
+
+    input[name=yes] {
+        background-color: lightseagreen;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+</style>
 
 <header>
     <h1>HIIT-Happens</h1>
 </header>
 
 <main>
-    
+
 </main>
 
 <footer>
-
+    <button>New Workout</button>
+    <dialog is="edit-dialog" id="new-workout-dialog"></dialog>
 </footer>

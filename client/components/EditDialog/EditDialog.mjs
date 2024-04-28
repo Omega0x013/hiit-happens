@@ -29,7 +29,7 @@ export default class EditDialog extends HTMLDialogElement {
   }
 
   update() {
-    const { name, exercises } = this.workout;
+    const { name, exercises } = this.workout ?? { name: '', exercises: [] };
     this.nameInput.value = name;
 
     // Delete the previous entries if they exist.

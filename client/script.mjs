@@ -12,3 +12,16 @@ for (let i = 0; i < localStorage.length; i++) {
   workout.dataset.id = localStorage.key(i);
   main.append(workout);
 }
+
+const dialog = document.querySelector('footer > dialog');
+
+document.querySelector('footer > button').addEventListener('click', () => {
+  dialog.dataset.id = crypto.randomUUID();
+  dialog.showModal();
+});
+
+dialog.addEventListener('update', () => {
+  const workout = document.createElement('workout-tile');
+  workout.dataset.id = dialog.dataset.id;
+  main.append(workout);
+});
