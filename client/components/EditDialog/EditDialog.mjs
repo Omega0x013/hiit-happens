@@ -15,16 +15,15 @@ export default class EditDialog extends HTMLDialogElement {
     this.ul = this.figure.querySelector('ul');
 
     this.add = this.querySelector('input[name=add]');
-    this.add.addEventListener('click', () => this.ul.append(this.makeLi(null, 1000)));
+    this.add.addEventListener('click', () => this.ul.append(this.makeLi()));
 
     this.update();
   }
 
   makeLi(type, duration) {
-    const li = this.template.content.cloneNode(true).querySelector('li');
-    li.querySelector('input[name=type]').value = type;
-    li.querySelector('input[name=duration]').value = Math.floor(duration / 1000);
-    li.querySelector('input[type=button]').addEventListener('click', () => li.remove());
+    const li = document.createElement('li', { is: 'exercise-li' });
+    li.dataset.type = type ?? '';
+    li.dataset.duration = duration;
     return li;
   }
 

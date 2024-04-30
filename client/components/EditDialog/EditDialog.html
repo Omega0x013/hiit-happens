@@ -2,15 +2,8 @@
     <label>Name: <input type="text" name="name" required autocomplete="off"></label>
     <figure>
         <ul></ul>
-        <input type="button" name="add" value="Add">
+        <input type="button" name="add" value="Add Exercise">
     </figure>
     <input type="submit" name="yes" value="Save">
-    <input type="submit" name="no" value="Cancel">
+    <input type="submit" name="no" value="Cancel" formnovalidate>
 </form>
-<template>
-    <li>
-        <input type="text" name="type" required placeholder="Type">
-        <input type="number" min="0" max="120" required name="duration" placeholder="Duration">
-        <input type="button" value="Delete">
-    </li>
-</template>
