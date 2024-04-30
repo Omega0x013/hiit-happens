@@ -21,3 +21,11 @@ body {
 header > h1 {
     margin-bottom: 0;
 }
+
+li {
+    list-style: none;
+}
+
+ul {
+    padding: 0;
+}
