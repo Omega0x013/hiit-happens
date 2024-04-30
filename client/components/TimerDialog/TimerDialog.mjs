@@ -19,7 +19,7 @@ export default class TimerDialog extends HTMLDialogElement {
     this.addEventListener('update', this.update.bind(this));
 
     this.meter = this.querySelector('meter');
-    this.p = this.querySelector('p');
+    this.h1 = this.querySelector('h1');
 
     this.button = this.querySelector('input[type=button]');
     this.button.addEventListener('click', () => (this.paused = !this.paused));
@@ -29,7 +29,7 @@ export default class TimerDialog extends HTMLDialogElement {
 
   update() {
     const { name, exercises } = JSON.parse(localStorage.getItem(this.dataset.id));
-    this.querySelector('h1').textContent = name;
+    this.querySelector('p').textContent = name;
     this.exercises = exercises;
   }
 
@@ -53,7 +53,7 @@ export default class TimerDialog extends HTMLDialogElement {
     }
 
     this.meter.value = (duration - this.elapsed) / duration;
-    this.p.textContent = type;
+    this.h1.textContent = type;
 
     requestAnimationFrame(this.boundAnimationFrame);
   }
