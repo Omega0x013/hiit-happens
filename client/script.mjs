@@ -2,9 +2,6 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/serviceworker.js');
 }
 
-localStorage.setItem('abc', JSON.stringify({ name: 'full tilt', exercises: [{ type: 'walk', duration: 15000 }, { type: 'rest', duration: 3000 }, { type: 'sprint', duration: 9000 }] }));
-localStorage.setItem('cbd', JSON.stringify({ name: 'low effort', exercises: [{ type: 'lie down', duration: 5000 }] }));
-
 const main = document.querySelector('main');
 
 for (let i = 0; i < localStorage.length; i++) {
@@ -15,8 +12,11 @@ for (let i = 0; i < localStorage.length; i++) {
 
 const dialog = document.querySelector('footer > dialog');
 
+const ALPHABET = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/='];
+
 document.querySelector('footer > button').addEventListener('click', () => {
-  dialog.dataset.id = crypto.randomUUID();
+  // dialog.dataset.id = crypto.randomUUID();
+  dialog.dataset.id = Array.from({ length: 32 }, () => ALPHABET.at(Math.floor(Math.random() * ALPHABET.length))).join('');
   dialog.showModal();
 });
 
