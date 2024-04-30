@@ -8,8 +8,6 @@ export default class EditDialog extends HTMLDialogElement {
 
     // TODO: #25 edit dialog drag reorder
 
-    this.template = this.querySelector('template');
-
     this.nameInput = this.querySelector('input[name=name]');
     this.figure = this.querySelector('figure');
     this.ul = this.figure.querySelector('ul');
@@ -48,8 +46,7 @@ export default class EditDialog extends HTMLDialogElement {
 
     const exercises = [];
     for (const li of this.ul.querySelectorAll('li')) {
-      const [type, duration] = li.querySelectorAll('input');
-      exercises.push({ type: type.value.trim(), duration: duration.value * 1000 });
+      exercises.push({ type: li.typeInput.value.trim(), duration: li.durationInput.value * 1000 });
     }
 
     const workout = { name: this.nameInput.value, exercises };
