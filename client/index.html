@@ -2,40 +2,23 @@
 <title>HIIT</title>
 <meta charset=UTF-8>
 <meta name=viewport content="width=device-width, initial-scale=1.0">
+<meta lang="en">
 <link rel="manifest" href="app.webmanifest" crossorigin="use-credentials">
 <link rel="icon" href="icon.png">
+<link rel="stylesheet" href="style.css">
 <script type="module" src="components/WorkoutTile/WorkoutTile.mjs" async></script>
 <script type="module" src="components/EditDialog/EditDialog.mjs" async></script>
 <script type="module" src="components/TimerDialog/TimerDialog.mjs" async></script>
 <script type="module" src="script.mjs" defer></script>
-<style>
-    input[type=submit] {
-        padding: .5em;
-    }
-
-    input[name=yes] {
-        background-color: lightseagreen;
-    }
-
-    form {
-        display: flex;
-        flex-direction: column;
-    }
-
-    header, main, footer {
-        margin: 1em;
-    }
-</style>
 
 <header>
     <h1>HIIT-Happens</h1>
 </header>
-
 <main>
 
 </main>
-
 <footer>
+    <hr>
     <button>New Workout</button>
     <dialog is="edit-dialog" id="new-workout-dialog"></dialog>
 </footer>
