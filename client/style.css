@@ -43,3 +43,11 @@ figure {
         padding: .5em;
     }
 }
+
+section {
+    padding: .5em;
+
+    > h2, > h3 {
+        margin: 0;
+    }
+}

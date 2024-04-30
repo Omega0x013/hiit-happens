@@ -5,26 +5,6 @@
  * - Contains a timer-dialog, allowing the user to run the exercise.
  */
 export default class WorkoutTile extends HTMLElement {
-  update() {
-    const { name, exercises } = this.workout;
-
-    this.shadowRoot.querySelector('h2').innerText = name;
-    this.shadowRoot.querySelector('span').innerText = name;
-    const ms = exercises?.reduce((p, c) => p + c.duration, 0);
-    const [minutes, seconds] = [Math.floor(ms / 1000 / 60), Math.floor(ms / 1000 % 60)];
-    this.shadowRoot.querySelector('h3').innerText = `${minutes}m ${seconds}s`;
-
-    // When this tile is updated, call the child event handlers without bubbling
-    const event = new Event('update', { bubbles: false });
-    for (const dialog of this.shadowRoot.querySelectorAll('dialog')) {
-      dialog.dispatchEvent(event);
-    }
-  }
-
-  get workout() {
-    return JSON.parse(localStorage.getItem(this.dataset.id));
-  }
-
   async connectedCallback() {
     this.attachShadow({ mode: 'open' });
 
@@ -55,6 +35,22 @@ export default class WorkoutTile extends HTMLElement {
     });
 
     this.update();
+  }
+
+  update() {
+    const { name, exercises } = JSON.parse(localStorage.getItem(this.dataset.id));
+
+    this.shadowRoot.querySelector('h2').innerText = name;
+    this.shadowRoot.querySelector('span').innerText = name;
+    const ms = exercises?.reduce((p, c) => p + c.duration, 0);
+    const [minutes, seconds] = [Math.floor(ms / 1000 / 60), Math.floor(ms / 1000 % 60)];
+    this.shadowRoot.querySelector('h3').innerText = `${minutes}m ${seconds}s`;
+
+    // When this tile is updated, call the child event handlers without bubbling
+    const event = new Event('update', { bubbles: false });
+    for (const dialog of this.shadowRoot.querySelectorAll('dialog')) {
+      dialog.dispatchEvent(event);
+    }
   }
 }
 

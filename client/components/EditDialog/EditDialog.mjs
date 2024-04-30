@@ -28,7 +28,8 @@ export default class EditDialog extends HTMLDialogElement {
   }
 
   update() {
-    const { name, exercises } = this.workout ?? { name: '', exercises: [] };
+    const workout = JSON.parse(localStorage.getItem(this.dataset.id));
+    const { name, exercises } = workout ?? { name: '', exercises: [] };
     this.nameInput.value = name;
 
     // Delete the previous entries if they exist.
@@ -42,14 +43,6 @@ export default class EditDialog extends HTMLDialogElement {
     }
   }
 
-  get workout() {
-    return JSON.parse(localStorage.getItem(this.dataset.id));
-  }
-
-  set workout(workout) {
-    localStorage.setItem(this.dataset.id, JSON.stringify(workout));
-  }
-
   closeDialogCallback() {
     if (this.returnValue !== 'Save') return;
 
@@ -59,12 +52,8 @@ export default class EditDialog extends HTMLDialogElement {
       exercises.push({ type: type.value.trim(), duration: duration.value * 1000 });
     }
 
-    this.workout = { name: this.nameInput.value, exercises };
-
-    // This serves as a fallback
-    if (!this.workout.name || !this.workout.exercises?.length) {
-      console.error('EditDialog: Invalid form submitted');
-    }
+    const workout = { name: this.nameInput.value, exercises };
+    localStorage.setItem(this.dataset.id, JSON.stringify(workout));
 
     /**
      * Dispatch an event to ourselves which bubbles up to the tile,

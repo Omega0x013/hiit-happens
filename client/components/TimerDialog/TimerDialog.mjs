@@ -13,7 +13,6 @@ export default class TimerDialog extends HTMLDialogElement {
     this.innerHTML = await template.text();
 
     this.boundAnimationFrame = this.animationFrame.bind(this);
-    requestAnimationFrame(this.boundAnimationFrame);
 
     this.addEventListener('close', () => (this.paused = true));
     this.addEventListener('update', this.update.bind(this));
@@ -31,6 +30,7 @@ export default class TimerDialog extends HTMLDialogElement {
     const { name, exercises } = JSON.parse(localStorage.getItem(this.dataset.id));
     this.querySelector('p').textContent = name;
     this.exercises = exercises;
+    requestAnimationFrame(this.boundAnimationFrame);
   }
 
   animationFrame(now) {
