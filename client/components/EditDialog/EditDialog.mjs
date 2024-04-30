@@ -52,7 +52,6 @@ export default class EditDialog extends HTMLDialogElement {
   }
 
   closeDialogCallback() {
-    // TODO: #20 update localStorage based on the contents of the edit dialog
     if (this.returnValue !== 'Save') return;
 
     const exercises = [];
@@ -62,6 +61,11 @@ export default class EditDialog extends HTMLDialogElement {
     }
 
     this.workout = { name: this.nameInput.value, exercises };
+
+    // This serves as a fallback
+    if (!this.workout.name || !this.workout.exercises?.length) {
+      console.error('EditDialog: Invalid form submitted');
+    }
 
     /**
      * Dispatch an event to ourselves which bubbles up to the tile,

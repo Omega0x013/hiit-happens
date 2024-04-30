@@ -15,17 +15,31 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    font-family: sans-serif;
 }
 
 header > h1 {
     margin-bottom: 0;
 }
 
-li {
-    list-style: none;
-}
-
 ul {
     padding: 0;
+    margin: 0;
+
+    li {
+        list-style: none;
+    }
+}
+
+figure {
+    margin: .5em;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+
+    > input[type=button] {
+        margin: .5em;
+        padding: .5em;
+    }
 }

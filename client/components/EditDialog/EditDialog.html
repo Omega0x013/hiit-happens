@@ -1,17 +1,16 @@
 <form method=dialog>
-    <label>Name: <input type="text" name="name" autocomplete="off"></label>
+    <label>Name: <input type="text" name="name" required autocomplete="off"></label>
     <figure>
         <ul></ul>
         <input type="button" name="add" value="Add">
-        <label><input type="checkbox" name="draggable">Reorder</label>
     </figure>
     <input type="submit" name="yes" value="Save">
     <input type="submit" name="no" value="Cancel">
 </form>
 <template>
     <li>
-        <input type="text" name="type" placeholder="Type">
-        <input type="number" min="0" max="120" name="duration" placeholder="Duration">
+        <input type="text" name="type" required placeholder="Type">
+        <input type="number" min="0" max="120" required name="duration" placeholder="Duration">
         <input type="button" value="Delete">
     </li>
 </template>
