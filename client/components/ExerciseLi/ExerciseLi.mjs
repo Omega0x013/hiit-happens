@@ -9,18 +9,35 @@ export default class ExerciseLi extends HTMLLIElement {
     this.durationInput = this.querySelector('input[name=duration]');
     this.durationInput.value = Math.floor(this.dataset.duration / 1000);
 
-    this.deleteButton = this.querySelector('input[name=delete]');
-    this.deleteButton.addEventListener('click', () => this.remove());
+    const deleteButton = this.querySelector('input[name=delete]');
+    deleteButton.addEventListener('click', () => this.remove());
 
-    this.dialog = this.querySelector('dialog');
-    this.dialog.addEventListener('close', () => {
-      if (this.dialog.returnValue !== 'Cancel') {
-        this.typeInput.value = this.dialog.returnValue;
+    const dialog = this.querySelector('dialog');
+    dialog.addEventListener('close', () => {
+      if (dialog.returnValue !== 'Cancel') {
+        this.typeInput.value = dialog.returnValue;
       }
     });
 
-    this.choose = this.querySelector('input[name=choose]');
-    this.choose.addEventListener('click', () => this.dialog.showModal());
+    const res = await fetch(import.meta.resolve('../exercises.json'));
+    const exercises = await res.json();
+
+    const form = this.querySelector('form');
+
+    for (const [name, color] of Object.entries(exercises)) {
+      form.append(this.makeInput(name, color));
+    }
+
+    const choose = this.querySelector('input[name=choose]');
+    choose.addEventListener('click', () => dialog.showModal());
+  }
+
+  makeInput(name, color) {
+    const input = document.createElement('input');
+    input.type = 'submit';
+    input.value = name;
+    input.setAttribute('style', `background-color: ${color}`);
+    return input;
   }
 }
 

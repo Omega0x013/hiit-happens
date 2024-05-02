@@ -1,8 +1,3 @@
-const EXERCISE_COLORS = {
-  'Rest': 'green',
-  'Push Up': 'blue',
-};
-
 export default class TimerDialog extends HTMLDialogElement {
   constructor() {
     super();
@@ -27,6 +22,9 @@ export default class TimerDialog extends HTMLDialogElement {
     this.button = this.querySelector('input[type=button]');
     this.button.addEventListener('click', () => (this.paused = !this.paused));
 
+    const res = await fetch(import.meta.resolve('../exercises.json'));
+    this.colors = await res.json();
+
     this.update();
   }
 
@@ -43,7 +41,7 @@ export default class TimerDialog extends HTMLDialogElement {
     // Move the timer on if we're not paused, and set the background correctly
     if (!this.paused) {
       this.elapsed += now - this.previous;
-      document.documentElement.setAttribute('style', `--workout-color: ${EXERCISE_COLORS[type]}`);
+      document.documentElement.setAttribute('style', `--workout-color: ${this.colors[type]}`);
     }
     this.previous = now;
 
