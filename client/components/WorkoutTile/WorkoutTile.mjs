@@ -46,8 +46,9 @@ export default class WorkoutTile extends HTMLElement {
     // const [minutes, seconds] = [Math.floor(ms / 1000 / 60), Math.floor(ms / 1000 % 60)];
     // this.shadowRoot.querySelector('h3').innerText = `${minutes}m ${seconds}s`;
 
-    this.shadowRoot.querySelector('h2').innerText = name;
-    this.shadowRoot.querySelector('span').innerText = description;
+    this.shadowRoot.querySelector('h2').textContent = name;
+    this.shadowRoot.querySelector('form span').textContent = name;
+    this.shadowRoot.querySelector('section span').textContent = description;
 
     const ms = exercises?.reduce((p, c) => p + c.duration, 0);
     this.shadowRoot.querySelector('h3').textContent = `${Math.floor(ms / 1000 / 60)}m ${Math.floor(ms / 1000 % 60)}s`;

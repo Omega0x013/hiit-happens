@@ -1,4 +1,4 @@
-form {
+/* form {
     display: flex;
     flex-direction: column;
     
@@ -63,4 +63,53 @@ meter {
     ~ input {
         margin-top: 0.5em;
     }
+} */
+
+:root {
+    --workout-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: sans-serif;
+}
+
+::backdrop {
+    background-color: var(--workout-color);
+    opacity: 10%;
+}
+
+input[type=button],
+input[type=submit],
+button {
+    padding: .5em;
+}
+
+input[name=yes] {
+    background-color: lemonchiffon;
+}
+
+ul {
+    list-style: none;
+    margin: 0em;
+
+    input[type=button] {
+        padding: 0em;
+    }
+}
+
+progress {
+    max-width: 100%;
+    width: 100%;
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+::-moz-progress-bar {
+    background-color: var(--workout-color);
+}
+
+::-webkit-progress-value {
+    background-color: var(--workout-color);
 }
