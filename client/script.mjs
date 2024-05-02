@@ -4,9 +4,9 @@ if ('serviceWorker' in navigator) {
 
 const main = document.querySelector('main');
 
-for (let i = 0; i < localStorage.length; i++) {
+for (const id of Object.keys(localStorage)) {
   const workout = document.createElement('workout-tile');
-  workout.dataset.id = localStorage.key(i);
+  workout.dataset.id = id;
   main.append(workout);
 }
 
@@ -16,7 +16,7 @@ const ALPHABET = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz012345
 
 document.querySelector('footer > button').addEventListener('click', () => {
   // dialog.dataset.id = crypto.randomUUID();
-  dialog.dataset.id = Array.from({ length: 32 }, () => ALPHABET.at(Math.floor(Math.random() * ALPHABET.length))).join('');
+  dialog.dataset.id = Array.from({ length: 32 }, () => ALPHABET.at(Math.random() * ALPHABET.length)).join('');
   dialog.showModal();
 });
 

@@ -9,8 +9,8 @@ export default class EditDialog extends HTMLDialogElement {
     // TODO: #25 edit dialog drag reorder
 
     this.nameInput = this.querySelector('input[name=name]');
-    this.figure = this.querySelector('figure');
-    this.ul = this.figure.querySelector('ul');
+    this.descriptionInput = this.querySelector('input[name=description]');
+    this.ul = this.querySelector('ul');
 
     this.add = this.querySelector('input[name=add]');
     this.add.addEventListener('click', () => this.ul.append(this.makeLi()));
@@ -27,8 +27,9 @@ export default class EditDialog extends HTMLDialogElement {
 
   update() {
     const workout = JSON.parse(localStorage.getItem(this.dataset.id));
-    const { name, exercises } = workout ?? { name: '', exercises: [] };
+    const { name, description, exercises } = workout ?? { name: '', exercises: [] };
     this.nameInput.value = name;
+    this.descriptionInput.value = description;
 
     // Delete the previous entries if they exist.
     for (const li of this.ul.querySelectorAll('li')) {
@@ -49,7 +50,7 @@ export default class EditDialog extends HTMLDialogElement {
       exercises.push({ type: li.typeInput.value.trim(), duration: li.durationInput.value * 1000 });
     }
 
-    const workout = { name: this.nameInput.value, exercises };
+    const workout = { name: this.nameInput.value, description: this.descriptionInput.value, exercises };
     localStorage.setItem(this.dataset.id, JSON.stringify(workout));
 
     /**

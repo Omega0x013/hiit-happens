@@ -1,14 +1,18 @@
 form {
     display: flex;
     flex-direction: column;
-
-    input[name=yes], input[name=no] {
-        padding: .5em;
-    }
     
     input[name=yes] {
         background-color: lightseagreen;
     }
+
+    input[name=activity] {
+        font-size: 1.5em;
+    }
+}
+
+input[name=yes], input[name=no], button {
+    padding: .5em;
 }
 
 body {
@@ -49,5 +53,14 @@ section {
 
     > h2, > h3 {
         margin: 0;
+    }
+}
+
+meter {
+    max-width: 100%;
+    width: 100%;
+
+    ~ input {
+        margin-top: 0.5em;
     }
 }
