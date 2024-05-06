@@ -34,14 +34,13 @@ export default class WorkoutTile extends HTMLElement {
   }
 
   update() {
-    const { name, description, exercises } = JSON.parse(localStorage.getItem(this.dataset.id));
+    const { name, exercises } = JSON.parse(localStorage.getItem(this.dataset.id));
 
-    this.shadowRoot.querySelector('h2').textContent = name;
     this.shadowRoot.querySelector('form p > span').textContent = name;
-    this.shadowRoot.querySelector('section span').textContent = description;
 
     const ms = exercises?.reduce((p, c) => p + c.duration, 0);
-    this.shadowRoot.querySelector('h3').textContent = `${Math.floor(ms / 1000 / 60)}m ${Math.floor(ms / 1000 % 60)}s`;
+    const duration = `${Math.floor(ms / 1000 / 60)}m ${Math.floor(ms / 1000 % 60)}s`;
+    this.shadowRoot.querySelector('h2').textContent = `${name} - ${duration}`;
 
     // When this tile is updated, call the child event handlers without bubbling
     const event = new Event('update', { bubbles: false });

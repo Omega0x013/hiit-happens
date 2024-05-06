@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <title>HIIT</title>
+<meta lang="en">
 <meta charset=UTF-8>
 <meta name=viewport content="width=device-width, initial-scale=1.0">
-<meta lang="en">
+<meta name="description" content="Craft a bespoke HIIT workout to get fit in your own time.">
 <link rel="manifest" href="app.webmanifest" crossorigin="use-credentials">
 <link rel="icon" href="icon.png">
 <link rel="stylesheet" href="style.css">
@@ -20,18 +21,17 @@
 </footer>
 
 <template id="exercise-li-template">
-    <input type="button" name="choose" value="Exercise">
-    <input type="text" name="type" disabled>
-    <input type="number" min="0" max="120" required name="duration" placeholder="Duration">
-    <input type="button" name="delete" value="Delete">
+    <input type="button" name="choose" form="edit-dialog-form" value="Exercise">
+    <input type="text" name="type" form="edit-dialog-form" disabled>
+    <input type="number" min="0" max="120" required name="duration" form="edit-dialog-form" placeholder="Duration">
+    <input type="button" name="delete" form="edit-dialog-form" value="Delete">
     <dialog>
-        <form method="dialog">
-        </form>
+        <form method="dialog"></form>
     </dialog>
 </template>
 
 <template id="timer-dialog-template">
-    <form method="dialog">
+    <form method="dialog" class="flex-column">
         <span>NAME</span>
         <input type="text" name="activity" disabled value="ACTIVITY">
         <progress max="1"></progress>
@@ -41,28 +41,23 @@
 </template>
 
 <template id="edit-dialog-template">
-    <figure>
-        <label>Name: <input type="text" name="name" required placeholder="Workout Name" autocomplete="off"></label>
-        <label>Description: <input type="text" name="description" required placeholder="Workout Description"></label>
-        <ul></ul>
-        <input type="button" name="add" value="Add Exercise">
-    </figure>
-    <form method=dialog>
-        <input type="submit" name="yes" value="Save">
-        <input type="submit" name="no" value="Cancel" formnovalidate>
-    </form>
+    <form method="dialog" id="edit-dialog-form"></form>
+    <label>Name: <input type="text" name="name" form="edit-dialog-form" required placeholder="Workout Name"
+            autocomplete="off"></label>
+    <label>Description: <input type="text" name="description" form="edit-dialog-form" required
+            placeholder="Workout Description"></label>
+    <ul></ul>
+    <input type="button" name="add" form="edit-dialog-form" value="Add Exercise">
+    <input type="submit" name="yes" form="edit-dialog-form" value="Save">
+    <input type="submit" name="no" form="edit-dialog-form" value="Cancel" formnovalidate>
 </template>
 
 <template id="workout-tile-template">
     <link rel=stylesheet href="style.css">
-    <section>
-        <h2>Title</h2>
-        <span>Description</span>
-        <h3>Duration</h3>
-        <button>Run</button>
-        <button>Edit</button>
-        <button>Delete</button>
-    </section>
+    <h2></h2>
+    <button>Run</button>
+    <button>Edit</button>
+    <button>Delete</button>
     <dialog is="edit-dialog"></dialog>
     <dialog is="timer-dialog" paused="true"></dialog>
     <dialog>

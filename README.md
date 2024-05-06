@@ -1,7 +1,10 @@
-# hiit-happens
-HIIT PWA Web App - L5 Solo Project for Web Programming
+# HIIT-Happens - up2115791
 
 ## Features
+
+### Progressive Web App
+* Installable
+* Works offline
 
 ## AI
 
@@ -19,7 +22,4 @@ The workouts were split into: warm-up, strength, and cool-down exercises. I used
 
 > Could you give me some more cool down exercises?
 
-This prompt mostly elicited more specificity on the two cool down exercises it had already given me:
-
-- Marches
-- Arm Stretches
+The response to this prompt was unhelpful: it elicited more specifics on the cool down exercises it had already told me about, rather than additional exercises.

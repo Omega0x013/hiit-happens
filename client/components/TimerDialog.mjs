@@ -28,8 +28,8 @@ export default class TimerDialog extends HTMLDialogElement {
   }
 
   update() {
-    const { name, exercises } = JSON.parse(localStorage.getItem(this.dataset.id));
-    this.querySelector('span').textContent = name;
+    const { name, description, exercises } = JSON.parse(localStorage.getItem(this.dataset.id));
+    this.querySelector('span').textContent = `${name}: ${description}`;
     this.exercises = exercises;
     requestAnimationFrame(this.boundAnimationFrame);
   }
