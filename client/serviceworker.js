@@ -1,33 +1,45 @@
-const CACHE_NAME = 'hiit-v1';
+const CACHE_NAME = 'v1';
+const CACHE_PATHS = [
+  '/components/EditDialog.mjs',
+  '/components/ExerciseLi.mjs',
+  '/components/exercise.json',
+  '/components/TimerDialog.mjs',
+  '/components/WorkoutTile.mjs',
+  '/app.webmanifest',
+  '/icon.png',
+  '/index.html',
+  '/script.mjs',
+  '/serviceworker.js',
+  '/style.css',
+  '/',
+];
 
-self.addEventListener('fetch', e => {
-  if (e.request.url.match(/^\/api\//g)) {
-    // handle the /api/ route specifically
-    switch (e.request.method) {
-      case 'PUT':
-      case 'GET':
-      case 'PATCH':
-      case 'DELETE':
-    }
-  } else {
-    e.respondWith(networkThenCache(e.request));
-  }
-});
+// Use the stale-while-revalidate strategy
+self.addEventListener('fetch', event => event.respondWith(staleWhileRevalidate(event.request)));
 
 /**
- * Employs the network-fallback-to-cache strategy to fetch the response to a request.
  * @param {Request} request
- * @returns {Response}
  */
-async function networkThenCache(request) {
-  // Ask the network first, then hit the cache if we're offline.
+async function staleWhileRevalidate(request) {
   const cache = await caches.open(CACHE_NAME);
-  let response;
-  try {
-    response = await fetch(request);
-    cache.put(request, response.clone());
-  } catch (_error) {
-    response = await cache.match(request);
+  const cachedResponse = await cache.match(request);
+
+  // Avoid a try-catch block using the catch promise method
+  const networkResponse = await fetch(request).catch(() =>
+    new Response('Request Timeout', { status: 408, headers: { 'Content-Type': 'text/plain' } }),
+  );
+
+  // Cache the response to be used next time
+  if (networkResponse.ok) {
+    await cache.put(request, networkResponse.clone());
   }
-  return response;
+
+  return cachedResponse || networkResponse;
+}
+
+self.addEventListener('install', event => event.waitUntil(precacheResources(CACHE_PATHS)));
+
+async function precacheResources(paths) {
+  const cache = await caches.open(CACHE_NAME);
+  cache.addAll(paths);
 }
