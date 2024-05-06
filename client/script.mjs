@@ -1,3 +1,4 @@
+import DownloadDialog from './components/DownloadDialog.mjs';
 import EditDialog from './components/EditDialog.mjs';
 import ExerciseLi from './components/ExerciseLi.mjs';
 import TimerDialog from './components/TimerDialog.mjs';
@@ -7,6 +8,7 @@ customElements.define('edit-dialog', EditDialog, { extends: 'dialog' });
 customElements.define('exercise-li', ExerciseLi, { extends: 'li' });
 customElements.define('timer-dialog', TimerDialog, { extends: 'dialog' });
 customElements.define('workout-tile', WorkoutTile);
+customElements.define('download-dialog', DownloadDialog, { extends: 'dialog' });
 
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/serviceworker.js');
