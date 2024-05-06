@@ -8,8 +8,7 @@ export default class TimerDialog extends HTMLDialogElement {
   }
 
   async connectedCallback() {
-    const template = await fetch(import.meta.resolve('./TimerDialog.html'));
-    this.innerHTML = await template.text();
+    this.append(document.querySelector('#timer-dialog-template').content.cloneNode(true));
 
     this.boundAnimationFrame = this.animationFrame.bind(this);
 
@@ -22,7 +21,7 @@ export default class TimerDialog extends HTMLDialogElement {
     this.button = this.querySelector('input[type=button]');
     this.button.addEventListener('click', () => (this.paused = !this.paused));
 
-    const res = await fetch(import.meta.resolve('../exercises.json'));
+    const res = await fetch(import.meta.resolve('./exercises.json'));
     this.colors = await res.json();
 
     this.update();
@@ -70,5 +69,3 @@ export default class TimerDialog extends HTMLDialogElement {
     document.documentElement.setAttribute('style', '--workout-color: black');
   }
 }
-
-customElements.define('timer-dialog', TimerDialog, { extends: 'dialog' });

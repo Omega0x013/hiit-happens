@@ -5,13 +5,9 @@
  * - Contains a timer-dialog, allowing the user to run the exercise.
  */
 export default class WorkoutTile extends HTMLElement {
-  async connectedCallback() {
+  connectedCallback() {
     this.attachShadow({ mode: 'open' });
-
-    /* I was originally attaching the content of a template element stored in WorkoutTile.html
-    to the shadow DOM. That was needless indirection since it still used innerHTML */
-    const template = await fetch(import.meta.resolve('./WorkoutTile.html'));
-    this.shadowRoot.innerHTML = await template.text();
+    this.shadowRoot.append(document.querySelector('#workout-tile-template').content.cloneNode(true));
 
     // Bind the buttons and dialogs together
     const [runButton, editButton, deleteButton] = this.shadowRoot.querySelectorAll('button');
@@ -40,14 +36,8 @@ export default class WorkoutTile extends HTMLElement {
   update() {
     const { name, description, exercises } = JSON.parse(localStorage.getItem(this.dataset.id));
 
-    // this.shadowRoot.querySelector('h2').innerText = name;
-    // this.shadowRoot.querySelector('span').innerText = name;
-    // const ms = exercises?.reduce((p, c) => p + c.duration, 0);
-    // const [minutes, seconds] = [Math.floor(ms / 1000 / 60), Math.floor(ms / 1000 % 60)];
-    // this.shadowRoot.querySelector('h3').innerText = `${minutes}m ${seconds}s`;
-
     this.shadowRoot.querySelector('h2').textContent = name;
-    this.shadowRoot.querySelector('form span').textContent = name;
+    this.shadowRoot.querySelector('form p > span').textContent = name;
     this.shadowRoot.querySelector('section span').textContent = description;
 
     const ms = exercises?.reduce((p, c) => p + c.duration, 0);
@@ -60,5 +50,3 @@ export default class WorkoutTile extends HTMLElement {
     }
   }
 }
-
-customElements.define('workout-tile', WorkoutTile);

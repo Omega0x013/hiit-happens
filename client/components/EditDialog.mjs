@@ -1,7 +1,6 @@
 export default class EditDialog extends HTMLDialogElement {
-  async connectedCallback() {
-    const template = await fetch(import.meta.resolve('./EditDialog.html'));
-    this.innerHTML = await template.text();
+  connectedCallback() {
+    this.append(document.querySelector('#edit-dialog-template').content.cloneNode(true));
 
     this.addEventListener('close', this.closeDialogCallback.bind(this));
     this.addEventListener('update', this.update.bind(this));
@@ -61,5 +60,3 @@ export default class EditDialog extends HTMLDialogElement {
     this.dispatchEvent(event);
   }
 }
-
-customElements.define('edit-dialog', EditDialog, { extends: 'dialog' });

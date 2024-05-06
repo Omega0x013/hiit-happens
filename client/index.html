@@ -6,10 +6,6 @@
 <link rel="manifest" href="app.webmanifest" crossorigin="use-credentials">
 <link rel="icon" href="icon.png">
 <link rel="stylesheet" href="style.css">
-<script type="module" src="components/WorkoutTile/WorkoutTile.mjs" async></script>
-<script type="module" src="components/EditDialog/EditDialog.mjs" async></script>
-<script type="module" src="components/TimerDialog/TimerDialog.mjs" async></script>
-<script type="module" src="components/ExerciseLi/ExerciseLi.mjs" async></script>
 <script type="module" src="script.mjs" defer></script>
 
 <header>
@@ -22,3 +18,58 @@
     <button>New Workout</button>
     <dialog is="edit-dialog" id="new-workout-dialog"></dialog>
 </footer>
+
+<template id="exercise-li-template">
+    <input type="button" name="choose" value="Exercise">
+    <input type="text" name="type" disabled>
+    <input type="number" min="0" max="120" required name="duration" placeholder="Duration">
+    <input type="button" name="delete" value="Delete">
+    <dialog>
+        <form method="dialog">
+        </form>
+    </dialog>
+</template>
+
+<template id="timer-dialog-template">
+    <form method="dialog">
+        <span>NAME</span>
+        <input type="text" name="activity" disabled value="ACTIVITY">
+        <progress max="1"></progress>
+        <input type="button" name="yes" value="Play/Pause">
+        <input type="submit" name="no" value="Close">
+    </form>
+</template>
+
+<template id="edit-dialog-template">
+    <figure>
+        <label>Name: <input type="text" name="name" required placeholder="Workout Name" autocomplete="off"></label>
+        <label>Description: <input type="text" name="description" required placeholder="Workout Description"></label>
+        <ul></ul>
+        <input type="button" name="add" value="Add Exercise">
+    </figure>
+    <form method=dialog>
+        <input type="submit" name="yes" value="Save">
+        <input type="submit" name="no" value="Cancel" formnovalidate>
+    </form>
+</template>
+
+<template id="workout-tile-template">
+    <link rel=stylesheet href="style.css">
+    <section>
+        <h2>Title</h2>
+        <span>Description</span>
+        <h3>Duration</h3>
+        <button>Run</button>
+        <button>Edit</button>
+        <button>Delete</button>
+    </section>
+    <dialog is="edit-dialog"></dialog>
+    <dialog is="timer-dialog" paused="true"></dialog>
+    <dialog>
+        <form method=dialog>
+            <p>Delete "<span>NAME</span>"?</p>
+            <input type="submit" name="yes" value="Confirm">
+            <input type="submit" name="no" value="Cancel">
+        </form>
+    </dialog>
+</template>

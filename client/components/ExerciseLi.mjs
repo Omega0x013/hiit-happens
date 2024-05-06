@@ -1,7 +1,6 @@
 export default class ExerciseLi extends HTMLLIElement {
   async connectedCallback() {
-    const template = await fetch(import.meta.resolve('./ExerciseLi.html'));
-    this.innerHTML = await template.text();
+    this.append(document.querySelector('#exercise-li-template').content.cloneNode(true));
 
     this.typeInput = this.querySelector('input[name=type]');
     this.typeInput.value = this.dataset.type;
@@ -19,7 +18,7 @@ export default class ExerciseLi extends HTMLLIElement {
       }
     });
 
-    const res = await fetch(import.meta.resolve('../exercises.json'));
+    const res = await fetch(import.meta.resolve('./exercises.json'));
     const exercises = await res.json();
 
     const form = this.querySelector('form');
@@ -40,5 +39,3 @@ export default class ExerciseLi extends HTMLLIElement {
     return input;
   }
 }
-
-customElements.define('exercise-li', ExerciseLi, { extends: 'li' });
