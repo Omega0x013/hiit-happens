@@ -22,15 +22,20 @@ for (const id of Object.keys(localStorage)) {
   main.append(workout);
 }
 
-const dialog = document.querySelector('footer > dialog');
+// const dialog = document.querySelector('footer > dialog');
 
-document.querySelector('footer > button').addEventListener('click', () => {
-  dialog.dataset.id = crypto.randomUUID();
-  dialog.showModal();
-});
+// document.querySelector('footer > button').addEventListener('click', () => {
+//   dialog.dataset.id = crypto.randomUUID();
+//   dialog.showModal();
+// });
 
-dialog.addEventListener('update', () => {
-  const workout = document.createElement('workout-tile');
-  workout.dataset.id = dialog.dataset.id;
-  main.append(workout);
-});
+// dialog.addEventListener('update', () => {
+//   const workout = document.createElement('workout-tile');
+//   workout.dataset.id = dialog.dataset.id;
+//   main.append(workout);
+// });
+
+for (const label of document.querySelectorAll('footer > label')) {
+  const [button, dialog] = label.children;
+  button.addEventListener('click', () => dialog.showModal());
+}

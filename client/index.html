@@ -16,8 +16,14 @@
 
 </main>
 <footer>
-    <button>New Workout</button>
-    <dialog is="edit-dialog" id="new-workout-dialog"></dialog>
+    <label>
+        <input type="button" id="new-workout-button" value="New Workout">
+        <dialog is="edit-dialog" id="new-workout-dialog"></dialog>
+    </label>
+    <label>
+        <input type="button" value="Download Workouts">
+        <dialog is="download-dialog"></dialog>
+    </label>
 </footer>
 
 <template id="exercise-li-template">
@@ -69,4 +75,7 @@
     </dialog>
 </template>
 
-<template id="download-dialog-template"></template>
+<template id="download-dialog-template">
+    <h1>Download Workouts</h1>
+    <ul></ul>
+</template>

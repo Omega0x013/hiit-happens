@@ -3,7 +3,7 @@ export default class EditDialog extends HTMLDialogElement {
     this.append(document.querySelector('#edit-dialog-template').content.cloneNode(true));
 
     this.addEventListener('close', this.closeDialogCallback.bind(this));
-    this.addEventListener('update', this.update.bind(this));
+    this.addEventListener('update', this.update);
 
     // TODO: #25 edit dialog drag reorder
 
