@@ -1,3 +1,4 @@
+import DownloadDialog from './components/DownloadDialog.mjs';
 import EditDialog from './components/EditDialog.mjs';
 import ExerciseLi from './components/ExerciseLi.mjs';
 import TimerDialog from './components/TimerDialog.mjs';
@@ -7,6 +8,7 @@ customElements.define('edit-dialog', EditDialog, { extends: 'dialog' });
 customElements.define('exercise-li', ExerciseLi, { extends: 'li' });
 customElements.define('timer-dialog', TimerDialog, { extends: 'dialog' });
 customElements.define('workout-tile', WorkoutTile);
+customElements.define('download-dialog', DownloadDialog, { extends: 'dialog' });
 
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/serviceworker.js');
@@ -20,18 +22,20 @@ for (const id of Object.keys(localStorage)) {
   main.append(workout);
 }
 
-const dialog = document.querySelector('footer > dialog');
+// const dialog = document.querySelector('footer > dialog');
 
-const ALPHABET = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/='];
+// document.querySelector('footer > button').addEventListener('click', () => {
+//   dialog.dataset.id = crypto.randomUUID();
+//   dialog.showModal();
+// });
 
-document.querySelector('footer > button').addEventListener('click', () => {
-  // dialog.dataset.id = crypto.randomUUID();
-  dialog.dataset.id = Array.from({ length: 32 }, () => ALPHABET.at(Math.random() * ALPHABET.length)).join('');
-  dialog.showModal();
-});
+// dialog.addEventListener('update', () => {
+//   const workout = document.createElement('workout-tile');
+//   workout.dataset.id = dialog.dataset.id;
+//   main.append(workout);
+// });
 
-dialog.addEventListener('update', () => {
-  const workout = document.createElement('workout-tile');
-  workout.dataset.id = dialog.dataset.id;
-  main.append(workout);
-});
+for (const label of document.querySelectorAll('footer > label')) {
+  const [button, dialog] = label.children;
+  button.addEventListener('click', () => dialog.showModal());
+}

@@ -16,6 +16,7 @@ export default class WorkoutTile extends HTMLElement {
     editDialog.dataset.id = this.dataset.id;
     timerDialog.dataset.id = this.dataset.id;
 
+    // Since the event listener isn't on this itself, we must use bind.
     this.shadowRoot.addEventListener('update', this.update.bind(this));
 
     runButton.addEventListener('click', () => timerDialog.showModal());

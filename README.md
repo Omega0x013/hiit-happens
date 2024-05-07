@@ -3,8 +3,13 @@
 ## Features
 
 ### Progressive Web App
-* Installable
-* Works offline
+
+- Install - The browser should offer an installation prompt/button. Once the app is installed, it should be in a standalone window.
+- Works offline - The page should still load and function completely while offline. Bring the page offline in:
+    - Chrome: DevTools > Network > No Throttling > Offline
+    - Firefox: File > Work Offline
+
+The service worker implements precaching when it is installed, and live caching using the stale-while-revalidate strategy. I chose this strategy because it offers better freshness that cache-then-network.
 
 ## AI
 
