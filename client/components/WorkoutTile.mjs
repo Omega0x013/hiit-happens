@@ -9,28 +9,20 @@ export default class WorkoutTile extends HTMLElement {
     this.attachShadow({ mode: 'open' });
     this.shadowRoot.append(document.querySelector('#workout-tile-template').content.cloneNode(true));
 
-    // Bind the buttons and dialogs together
-    const [runButton, editButton, deleteButton] = this.shadowRoot.querySelectorAll('button');
-    const [editDialog, timerDialog, deleteDialog] = this.shadowRoot.querySelectorAll('dialog');
+    for (const div of this.shadowRoot.querySelectorAll('div:not(dialog *)')) {
+      const [button, dialog] = div.children;
+      button.addEventListener('click', () => dialog.showModal());
+      dialog.dataset.id = this.dataset.id;
+    }
 
-    editDialog.dataset.id = this.dataset.id;
-    timerDialog.dataset.id = this.dataset.id;
-
-    // Since the event listener isn't on this itself, we must use bind.
-    this.shadowRoot.addEventListener('update', this.update.bind(this));
-
-    runButton.addEventListener('click', () => timerDialog.showModal());
-
-    editButton.addEventListener('click', () => editDialog.showModal());
-
-    deleteButton.addEventListener('click', () => deleteDialog.showModal());
-    deleteDialog.addEventListener('close', () => {
-      if (deleteDialog.returnValue === 'Confirm') {
+    this.shadowRoot.querySelector('#delete-dialog').addEventListener('close', event => {
+      if (event.target.returnValue === 'Confirm') {
         localStorage.removeItem(this.dataset.id);
         this.remove();
       }
     });
 
+    this.shadowRoot.addEventListener('update', this.update.bind(this));
     this.update();
   }
 

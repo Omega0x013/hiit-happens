@@ -16,20 +16,24 @@
 
 </main>
 <footer>
-    <label>
+    <div>
         <input type="button" id="new-workout-button" value="New Workout">
         <dialog is="edit-dialog" id="new-workout-dialog"></dialog>
-    </label>
-    <label>
+    </div>
+    <div>
         <input type="button" value="Download Workouts">
         <dialog is="download-dialog"></dialog>
-    </label>
+    </div>
+    <div>
+        <input type="button" value="Upload Workouts">
+        <dialog is="upload-dialog"></dialog>
+    </div>
 </footer>
 
 <template id="exercise-li-template">
     <input type="button" name="choose" form="edit-dialog-form" value="Exercise">
     <input type="text" name="type" form="edit-dialog-form" disabled>
-    <input type="number" min="0" max="120" required name="duration" form="edit-dialog-form" placeholder="Duration">
+    <input type="number" min="1" max="120" required name="duration" form="edit-dialog-form" placeholder="Duration">
     <input type="button" name="delete" form="edit-dialog-form" value="Delete">
     <dialog>
         <form method="dialog"></form>
@@ -48,11 +52,15 @@
 
 <template id="edit-dialog-template">
     <form method="dialog" id="edit-dialog-form"></form>
-    <label>Name: <input type="text" name="name" form="edit-dialog-form" required placeholder="Workout Name"
-            autocomplete="off"></label>
-    <label>Description: <input type="text" name="description" form="edit-dialog-form" required
-            placeholder="Workout Description"></label>
-    <ul></ul>
+    <label>
+        Name: 
+        <input type="text" name="name" form="edit-dialog-form" required placeholder="Workout Name" autocomplete="off">
+    </label>
+    <label>
+        Description:
+        <input type="text" name="description" form="edit-dialog-form" required placeholder="Workout Description">
+    </label>
+    <ul class="list-undecorated"></ul>
     <input type="button" name="add" form="edit-dialog-form" value="Add Exercise">
     <input type="submit" name="yes" form="edit-dialog-form" value="Save">
     <input type="submit" name="no" form="edit-dialog-form" value="Cancel" formnovalidate>
@@ -61,21 +69,38 @@
 <template id="workout-tile-template">
     <link rel=stylesheet href="style.css">
     <h2></h2>
-    <button>Run</button>
-    <button>Edit</button>
-    <button>Delete</button>
-    <dialog is="edit-dialog"></dialog>
-    <dialog is="timer-dialog" paused="true"></dialog>
-    <dialog>
-        <form method=dialog>
-            <p>Delete "<span>NAME</span>"?</p>
-            <input type="submit" name="yes" value="Confirm">
-            <input type="submit" name="no" value="Cancel">
-        </form>
-    </dialog>
+    <div>
+        <input type="button" value="Run">
+        <dialog is="timer-dialog" paused="true"></dialog>
+    </div>
+    <div>
+        <input type="button" value="Edit">
+        <dialog is="edit-dialog"></dialog>
+    </div>
+    <div>
+        <input type="button" value="Delete">
+        <dialog id="delete-dialog">
+            <form method=dialog>
+                <p>Delete "<span>NAME</span>"?</p>
+                <input type="submit" name="yes" value="Confirm">
+                <input type="submit" name="no" value="Cancel">
+            </form>
+        </dialog>
+    </div>
 </template>
 
 <template id="download-dialog-template">
     <h1>Download Workouts</h1>
     <ul></ul>
+    <form method=dialog>
+        <input type="submit" name="no" value="Close">
+    </form>
+</template>
+
+<template id="upload-dialog-template">
+    <form method=dialog>
+        <input type="file" name="upload">
+        <input type="submit" name="yes" value="Save">
+        <input type="submit" name="no" value="Cancel">
+    </form>
 </template>

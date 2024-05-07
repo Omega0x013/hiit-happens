@@ -13,7 +13,7 @@ export default class TimerDialog extends HTMLDialogElement {
     this.boundAnimationFrame = this.animationFrame.bind(this);
 
     this.addEventListener('close', this.closeDialogCallback);
-    this.addEventListener('update', this.update);
+    this.addEventListener('update', this.update.bind(this));
 
     this.progress = this.querySelector('progress');
     this.activity = this.querySelector('input[name=activity]');

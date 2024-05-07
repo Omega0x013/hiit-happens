@@ -5,11 +5,23 @@
 ### Progressive Web App
 
 - Install - The browser should offer an installation prompt/button. Once the app is installed, it should be in a standalone window.
-- Works offline - The page should still load and function completely while offline. Bring the page offline in:
+- Works offline - The page should still load and function completely while offline. Bring the page offline in...
     - Chrome: DevTools > Network > No Throttling > Offline
     - Firefox: File > Work Offline
 
-The service worker implements precaching when it is installed, and live caching using the stale-while-revalidate strategy. I chose this strategy because it offers better freshness that cache-then-network.
+The service worker implements precaching when it is installed, and live caching using the stale-while-revalidate strategy. This is advantageous strategy because it offers better freshness than cache-then-network, while beating network-then-cache in worst case speed.
+
+### Visual Cues
+
+While the timer is running, the colour of the progress bar and backdrop change according to the category the workout is in. When creating or editing a workout, the colours of the buttons in the exercise picker correspond to the colour the timer will be.
+
+This visual cue will particularly help users who are very familiar with the workout they are running, as they won't need to read the text to know which exercise the colour corresponds to.
+
+### Download/Upload Workouts
+
+The user may download or upload workouts as JSON files. This format is appropriate as the workouts are already serialised using `JSON.stringify` when they are stored in `localStorage`.
+
+Download workouts via the 'Download Workouts' button, and click on the name of the workout you want to download.
 
 ## AI
 

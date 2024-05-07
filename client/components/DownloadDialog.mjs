@@ -11,6 +11,7 @@ export default class DownloadDialog extends HTMLDialogElement {
   }
 
   update() {
+    this.ul.innerHTML = '';
     for (const [id, workout] of Object.entries(localStorage)) {
       const { name } = JSON.parse(workout);
       const a = document.createElement('a');

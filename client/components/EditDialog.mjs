@@ -3,7 +3,7 @@ export default class EditDialog extends HTMLDialogElement {
     this.append(document.querySelector('#edit-dialog-template').content.cloneNode(true));
 
     this.addEventListener('close', this.closeDialogCallback.bind(this));
-    this.addEventListener('update', this.update);
+    this.addEventListener('update', this.update.bind(this));
 
     // TODO: #25 edit dialog drag reorder
 
@@ -20,7 +20,7 @@ export default class EditDialog extends HTMLDialogElement {
   makeLi(type, duration) {
     const li = document.createElement('li', { is: 'exercise-li' });
     li.dataset.type = type ?? '';
-    li.dataset.duration = duration;
+    li.dataset.duration = duration ?? 0;
     return li;
   }
 
