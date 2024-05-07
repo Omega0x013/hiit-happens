@@ -25,6 +25,8 @@ export default class EditDialog extends HTMLDialogElement {
   }
 
   update() {
+    if (!this.dataset.id) this.dataset.id = crypto.randomUUID();
+
     const workout = JSON.parse(localStorage.getItem(this.dataset.id));
     const { name, description, exercises } = workout ?? { name: '', description: '', exercises: [] };
     this.nameInput.value = name;

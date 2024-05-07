@@ -29,17 +29,11 @@ for (const div of document.querySelectorAll('footer > div')) {
   button.addEventListener('click', () => dialog.showModal());
 }
 
-const newWorkoutDialog = document.querySelector('#new-workout-dialog');
-const newWorkoutButton = document.querySelector('#new-workout-button');
-
-newWorkoutButton.addEventListener('click', () => {
-  newWorkoutDialog.dataset.id = crypto.randomUUID();
-  newWorkoutDialog.update();
-  newWorkoutDialog.showModal();
-});
-
-newWorkoutDialog.addEventListener('update', () => {
+function makeWorkout(event) {
   const workout = document.createElement('workout-tile');
-  workout.dataset.id = newWorkoutDialog.dataset.id;
+  workout.dataset.id = event.target.dataset.id;
   main.append(workout);
-});
+}
+
+document.querySelector('#new-workout-dialog').addEventListener('update', makeWorkout);
+document.querySelector('#upload-dialog').addEventListener('update', makeWorkout);
