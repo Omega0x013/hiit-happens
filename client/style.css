@@ -48,8 +48,19 @@ dialog[is=edit-dialog] {
         margin: 0;
         list-style: none;
 
-        input[type=button] {
-            padding: 0;
+        display: flex;
+        flex-direction: column;
+
+        li {
+            display: flex;
+            flex-direction: row;
+            flex: 0 .7 min-content;
+            margin: .2em;
+        }
+
+        input {
+            padding: .2em 0 .2em 0;
+            margin: 0;
         }
     }
 }
@@ -73,6 +84,7 @@ fieldset {
     margin: 0;
 }
 
-h1, h2 {
+h1,
+h2 {
     margin-bottom: 0;
 }
