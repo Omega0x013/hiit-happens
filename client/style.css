@@ -1,5 +1,6 @@
 :root {
     --workout-color: black;
+    --progress-text: 'TIME';
     font-family: sans-serif;
     display: flex;
     flex-direction: column;
@@ -18,6 +19,12 @@ progress {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+}
+
+progress::before {
+    position: absolute;
+    content: var(--progress-text);
+    display: flex;
 }
 
 ::-moz-progress-bar {

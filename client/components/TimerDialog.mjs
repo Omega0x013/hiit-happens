@@ -55,6 +55,10 @@ export default class TimerDialog extends HTMLDialogElement {
       }
     }
 
+    const ms = duration - this.elapsed;
+    const minsands = `${Math.floor(ms / 1000 / 60)}m ${Math.floor(ms / 1000 % 60)}s`;
+
+    this.progress.setAttribute('style', `--progress-text: '${minsands}';`);
     this.progress.value = (duration - this.elapsed) / duration;
     this.activity.value = type;
 
