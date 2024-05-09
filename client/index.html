@@ -10,24 +10,27 @@
 <script type="module" src="script.mjs" defer></script>
 
 <header>
-    <h1>HIIT-Happens</h1>
+    <h1>Your Workouts</h1>
+    <fieldset>
+        <div>
+            <input type="button" id="new-workout-button" value="New Workout">
+            <dialog is="edit-dialog" id="new-workout-dialog"></dialog>
+        </div>
+        <div>
+            <input type="button" value="Download Workouts">
+            <dialog is="download-dialog"></dialog>
+        </div>
+        <div>
+            <input type="button" value="Upload Workouts">
+            <dialog is="upload-dialog" id="upload-dialog"></dialog>
+        </div>
+    </fieldset>
 </header>
-<main>
 
-</main>
+<main></main>
+
 <footer>
-    <div>
-        <input type="button" id="new-workout-button" value="New Workout">
-        <dialog is="edit-dialog" id="new-workout-dialog"></dialog>
-    </div>
-    <div>
-        <input type="button" value="Download Workouts">
-        <dialog is="download-dialog"></dialog>
-    </div>
-    <div>
-        <input type="button" value="Upload Workouts">
-        <dialog is="upload-dialog" id="upload-dialog"></dialog>
-    </div>
+
 </footer>
 
 <template id="exercise-li-template">
@@ -36,7 +39,9 @@
     <input type="number" min="1" max="120" required name="duration" form="edit-dialog-form" placeholder="Duration">
     <input type="button" name="delete" form="edit-dialog-form" value="Delete">
     <dialog>
-        <form method="dialog"></form>
+        <form method="dialog">
+            <input type="submit" name="close" value="Cancel">
+        </form>
     </dialog>
 </template>
 
@@ -45,62 +50,76 @@
         <span>NAME</span>
         <input type="text" name="activity" disabled value="ACTIVITY">
         <progress max="1"></progress>
-        <input type="button" name="yes" value="Play/Pause">
-        <input type="submit" name="no" value="Close">
+        <fieldset>
+            <input type="button" name="yes" value="Play/Pause">
+            <input type="submit" name="no" value="Close">
+        </fieldset>
     </form>
 </template>
 
 <template id="edit-dialog-template">
-    <form method="dialog" id="edit-dialog-form"></form>
-    <label>
-        Name: 
-        <input type="text" name="name" form="edit-dialog-form" required placeholder="Workout Name" autocomplete="off">
-    </label>
-    <label>
-        Description:
-        <input type="text" name="description" form="edit-dialog-form" required placeholder="Workout Description">
-    </label>
-    <ul class="list-undecorated"></ul>
-    <input type="button" name="add" form="edit-dialog-form" value="Add Exercise">
-    <input type="submit" name="yes" form="edit-dialog-form" value="Save">
-    <input type="submit" name="no" form="edit-dialog-form" value="Cancel" formnovalidate>
+    <form method="dialog" id="edit-dialog-form">
+        <label>
+            Name:
+            <input type="text" name="name" required placeholder="Workout Name" autocomplete="off">
+        </label>
+        <label>
+            Description:
+            <input type="text" name="description" required placeholder="Workout Description">
+        </label>
+    </form>
+    <input type="button" name="add" value="Add Exercise">
+    <ul></ul>
+    <fieldset>
+        <input type="submit" name="yes" form="edit-dialog-form" value="Save">
+        <input type="submit" name="no" form="edit-dialog-form" value="Cancel" formnovalidate>
+    </fieldset>
 </template>
 
 <template id="workout-tile-template">
+    <!-- Include the stylesheet inside the shadow dom -->
     <link rel=stylesheet href="style.css">
     <h2></h2>
-    <div>
-        <input type="button" value="Run">
-        <dialog is="timer-dialog" paused="true"></dialog>
-    </div>
-    <div>
-        <input type="button" value="Edit">
-        <dialog is="edit-dialog"></dialog>
-    </div>
-    <div>
-        <input type="button" value="Delete">
-        <dialog id="delete-dialog">
-            <form method=dialog>
-                <p>Delete "<span>NAME</span>"?</p>
-                <input type="submit" name="yes" value="Confirm">
-                <input type="submit" name="no" value="Cancel">
-            </form>
-        </dialog>
-    </div>
+    <fieldset>
+        <div>
+            <input type="button" value="Run">
+            <dialog is="timer-dialog" paused="true"></dialog>
+        </div>
+        <div>
+            <input type="button" value="Edit">
+            <dialog is="edit-dialog"></dialog>
+        </div>
+        <div>
+            <input type="button" value="Delete">
+            <dialog id="delete-dialog">
+                <form method=dialog>
+                    <p>Delete "<span>NAME</span>"?</p>
+                    <fieldset>
+                        <input type="submit" name="yes" value="Confirm">
+                        <input type="submit" name="no" value="Cancel">
+                    </fieldset>
+                </form>
+            </dialog>
+        </div>
+    </fieldset>
 </template>
 
 <template id="download-dialog-template">
     <h1>Download Workouts</h1>
     <ul></ul>
     <form method=dialog>
-        <input type="submit" name="no" value="Close">
+        <fieldset>
+            <input type="submit" name="no" value="Close">
+        </fieldset>
     </form>
 </template>
 
 <template id="upload-dialog-template">
     <form method=dialog>
         <input type="file" name="upload" accept="application/json">
-        <input type="submit" name="yes" value="Save">
-        <input type="submit" name="no" value="Cancel">
+        <fieldset>
+            <input type="submit" name="yes" value="Save">
+            <input type="submit" name="no" value="Cancel">
+        </fieldset>
     </form>
 </template>

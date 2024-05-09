@@ -1,11 +1,11 @@
 {
-    "Rest": "blue",
-    "Jumping Jacks": "yellow",
-    "High Knees": "yellow",
-    "Squats": "red",
-    "Lunges": "red",
-    "Push-ups": "red",
-    "Planks": "red",
-    "Marches": "green",
-    "Stretches": "green"
+    "Rest": "#41b6e6",
+    "Jumping Jacks": "#ffc845",
+    "High Knees": "#ffc845",
+    "Squats": "#d3273e",
+    "Lunges": "#d3273e",
+    "Push-ups": "#d3273e",
+    "Planks": "#d3273e",
+    "Marches": "#00bfb2",
+    "Stretches": "#00bfb2"
 }

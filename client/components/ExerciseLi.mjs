@@ -10,12 +10,12 @@ export default class ExerciseLi extends HTMLLIElement {
 
     const form = this.querySelector('form');
 
-    for (const [name, color] of Object.entries(this.exercises)) {
+    for (const [name, color] of Object.entries(this.exercises).reverse()) {
       const input = document.createElement('input');
       input.type = 'submit';
       input.value = name;
       input.setAttribute('style', `background-color: ${color}`);
-      form.append(input);
+      form.prepend(input);
     }
 
     const dialog = this.querySelector('dialog');

@@ -12,13 +12,13 @@ export default class DownloadDialog extends HTMLDialogElement {
 
   update() {
     this.ul.innerHTML = '';
-    for (const [id, workout] of Object.entries(localStorage)) {
+    for (const workout of Object.values(localStorage)) {
       const { name } = JSON.parse(workout);
       const a = document.createElement('a');
       // Since workout is already the product of JSON.stringify, it's easy to bundle it up.
       a.href = `data:text/plain;charset=utf-8,${encodeURIComponent(workout)}`;
       a.textContent = name;
-      a.download = `${name}-${id}.json`;
+      a.download = `${name}.json`;
 
       const li = document.createElement('li');
       li.append(a);

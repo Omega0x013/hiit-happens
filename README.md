@@ -20,8 +20,8 @@ This visual cue will particularly help users who are very familiar with the work
 ### Download/Upload Workouts
 
 The user may download or upload workouts as JSON files. This format is appropriate as the workouts are already serialised using `JSON.stringify` when they are stored in `localStorage`.
-
-Download workouts via the 'Download Workouts' button, and click on the name of the workout you want to download.
+- Download workouts via the 'Download Workouts' dialog: click on the name of the workout you want to download.
+- Upload workouts via the 'Upload Workouts' dialog: choose or drag and drop a workout file.
 
 ## AI
 
@@ -39,4 +39,4 @@ The workouts were split into: warm-up, strength, and cool-down exercises. I used
 
 > Could you give me some more cool down exercises?
 
-The response to this prompt was unhelpful: it elicited more specifics on the cool down exercises it had already told me about, rather than additional exercises.
+The response to this prompt was not what I was looking for: it elicited more specifics on the cool down exercises it had already told me about, rather than additional exercises.
