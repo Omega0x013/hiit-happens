@@ -1,0 +1,19 @@
+{
+  "name": "hiit-happens",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install-api": "cd api && install.bat",
+    "start-api": "cd api && run.bat",
+    "refresh-api": "cd api && install.bat && run.bat"
+
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github_emmashyper:emmashyper/hiit-happens.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
