@@ -2,9 +2,9 @@
 // Copyright (c) OpenFaaS Author(s) 2021. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-import handler from './function/handler';
-import {FunctionContext, FunctionEvent} from './function/runtime';
-import express, { Request } from 'express';
+import {FunctionContext, FunctionEvent} from './function/runtime.ts';
+import handler from './function/handler.ts';
+import express from 'express';
 import bodyParser from 'body-parser';
 
 
