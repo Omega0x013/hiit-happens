@@ -1,5 +1,15 @@
 # HIIT-Happens - up2115791
 
+## Installation
+
+### Installing API
+- [ ] Install [Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/) for your given operating system
+- [ ] Install [Open FAAS](https://docs.openfaas.com/cli/install/), again for your specific operating system
+- [ ] Run: `npm run setup`
+
+### Starting API
+- [ ] Run: `npm run watch`
+
 ## Features
 
 ### Progressive Web App
@@ -40,13 +50,3 @@ The workouts were split into: warm-up, strength, and cool-down exercises. I used
 > Could you give me some more cool down exercises?
 
 The response to this prompt was not what I was looking for: it elicited more specifics on the cool down exercises it had already told me about, rather than additional exercises.
-
-## Installation
-
-### Installing API
-- [ ] Install [Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/) for your given operating system
-- [ ] Install [Open FAAS](https://docs.openfaas.com/cli/install/), again for your specific operating system
-- [ ] Run: `npm run install-api`
-
-### Starting API
-- [ ] Run: `npm run start-api`

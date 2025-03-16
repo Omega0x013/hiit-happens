@@ -4,14 +4,15 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "install-api": "cd api && install.bat",
-    "start-api": "cd api && run.bat",
-    "refresh-api": "cd api && install.bat && run.bat"
+    "setup": "node api/setup.ts",
+    "watch": "cd api && faas-cli local-run --watch",
+    "start": "cd api && faas-cli local-run"
   },
   "repository": {
     "type": "git",
     "url": "git@github_emmashyper:emmashyper/hiit-happens.git"
   },
+  "type": "module",
   "author": "",
   "license": "ISC",
   "description": "",
