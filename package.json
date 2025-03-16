@@ -6,7 +6,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "setup": "node api/setup.ts",
     "watch": "cd api && faas-cli local-run --watch",
-    "start": "cd api && faas-cli local-run"
+    "start": "cd api && faas-cli local-run",
+    "deploy": "cd api && faas-cli deploy"
   },
   "repository": {
     "type": "git",
