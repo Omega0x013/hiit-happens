@@ -77,11 +77,19 @@ form {
 }
 
 fieldset {
+    transition: max-height 0.5s;
     display: flex;
     flex-direction: row;
     border: none;
     padding: 0;
     margin: 0;
+    max-height: 2.5em;
+    overflow: hidden;
+}
+
+#workout-tile-fieldset.hidden{
+    transition: max-height 0.5s;
+    max-height: 0;
 }
 
 h1,
