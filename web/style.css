@@ -84,6 +84,16 @@ fieldset {
     margin: 0;
 }
 
+#workout-tile-fieldset.visible {
+    transition: clip-path ease 0.5s;
+    clip-path: inset(0 0 0 0);
+}
+
+#workout-tile-fieldset.hidden{
+    transition: clip-path ease 0.5s;
+    clip-path: inset(0 0 100% 0);
+}
+
 h1,
 h2 {
     margin-bottom: 0;

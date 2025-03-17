@@ -82,7 +82,8 @@
     <!-- Include the stylesheet inside the shadow dom -->
     <link rel=stylesheet href="style.css">
     <h2></h2>
-    <fieldset>
+    <button id="dropdown-button">Expand</button>
+    <fieldset class="hidden" id="workout-tile-fieldset">
         <div>
             <input type="button" value="Run">
             <dialog is="timer-dialog" paused="true"></dialog>
