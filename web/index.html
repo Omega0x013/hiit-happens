@@ -14,7 +14,6 @@
     <fieldset>
         <div>
             <input type="button" id="new-workout-button" value="New Workout">
-            <dialog is="edit-dialog" id="new-workout-dialog"></dialog>
         </div>
         <div>
             <input type="button" value="Download Workouts">
@@ -30,7 +29,7 @@
 <main></main>
 
 <footer>
-
+    
 </footer>
 
 <template id="exercise-li-template">
@@ -57,54 +56,28 @@
     </form>
 </template>
 
-<template id="edit-dialog-template">
-    <form method="dialog" id="edit-dialog-form">
-        <label>
-            Name:
-            <input type="text" name="name" required placeholder="Workout Name" autocomplete="off">
-        </label>
-        <label>
-            Description:
-            <input type="text" name="description" required placeholder="Workout Description">
-        </label>
-    </form>
-    <hr>
-    <ul></ul>
-    <input type="button" name="add" value="Add Exercise">
-    <hr>
-    <fieldset>
-        <input type="submit" name="yes" form="edit-dialog-form" value="Save">
-        <input type="submit" name="no" form="edit-dialog-form" value="Cancel" formnovalidate>
-    </fieldset>
-</template>
-
 <template id="workout-tile-template">
-    <!-- Include the stylesheet inside the shadow dom -->
-    <link rel=stylesheet href="style.css">
-    <h2></h2>
-    <button id="dropdown-button">Expand</button>
-    <fieldset class="hidden" id="workout-tile-fieldset">
-        <div>
-            <input type="button" value="Run">
-            <dialog is="timer-dialog" paused="true"></dialog>
-        </div>
-        <div>
-            <input type="button" value="Edit">
-            <dialog is="edit-dialog"></dialog>
-        </div>
-        <div>
-            <input type="button" value="Delete">
-            <dialog id="delete-dialog">
-                <form method=dialog>
-                    <p>Delete "<span>NAME</span>"?</p>
-                    <fieldset>
-                        <input type="submit" name="yes" value="Confirm">
-                        <input type="submit" name="no" value="Cancel">
-                    </fieldset>
-                </form>
-            </dialog>
-        </div>
-    </fieldset>
+    <h2><span></span> - <span></span> <button>Expand</button></h2>
+    <section class="hidden">
+        <menu>
+            <li><button>Run</button></li>
+            <li><button>Rename</button></li>
+            <li><button>Delete</button></li>
+        </menu>
+        <hr>
+        <ul></ul>
+        <button>Add Exercise</button>
+    </section>
+    <dialog is="timer-dialog" paused="true"></dialog>
+    <dialog id="delete-dialog">
+        <form method=dialog>
+            <p>Are you sure?</p>
+            <fieldset>
+                <input type="submit" name="yes" value="Confirm">
+                <input type="submit" name="no" value="Cancel">
+            </fieldset>
+        </form>
+    </dialog>
 </template>
 
 <template id="download-dialog-template">

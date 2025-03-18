@@ -1,11 +1,10 @@
 import DownloadDialog from "./components/DownloadDialog.mjs";
-import EditDialog from "./components/EditDialog.mjs";
 import ExerciseLi from "./components/ExerciseLi.mjs";
 import TimerDialog from "./components/TimerDialog.mjs";
 import UploadDialog from "./components/UploadDialog.mjs";
 import WorkoutTile from "./components/WorkoutTile.mjs";
 
-customElements.define("edit-dialog", EditDialog, { extends: "dialog" });
+// customElements.define("edit-dialog", EditDialog, { extends: "dialog" });
 customElements.define("exercise-li", ExerciseLi, { extends: "li" });
 customElements.define("timer-dialog", TimerDialog, { extends: "dialog" });
 customElements.define("workout-tile", WorkoutTile);
@@ -35,5 +34,5 @@ function makeWorkout(event) {
 	main.append(workout);
 }
 
-document.querySelector("#new-workout-dialog").addEventListener("update", makeWorkout);
+document.querySelector("#new-workout-button").addEventListener("click", makeWorkout);
 document.querySelector("#upload-dialog").addEventListener("update", makeWorkout);
