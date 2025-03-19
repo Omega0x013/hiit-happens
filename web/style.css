@@ -15,11 +15,6 @@ progress {
     -moz-appearance: none;
     appearance: none;
 
-    &::backdrop {
-        background-color: var(--workout-color);
-        opacity: 10%;
-    }
-
     &::before {
         position: absolute;
         content: var(--progress-text);
@@ -33,6 +28,11 @@ progress {
     &::-webkit-progress-value {
         background-color: var(--workout-color);
     }
+}
+
+::backdrop {
+    background-color: var(--workout-color);
+    opacity: 10%;
 }
 
 /* input[type=button],
