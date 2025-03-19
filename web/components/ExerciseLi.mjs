@@ -23,6 +23,7 @@ export default class ExerciseLi extends HTMLLIElement {
       if (dialog.returnValue !== 'Cancel') {
         this.typeInput.value = dialog.returnValue;
         this.typeInput.setAttribute('style', `background-color: ${this.exercises[dialog.returnValue]}`);
+        this.dispatchEvent(new Event('change', {bubbles: true}));
       }
     });
 
@@ -30,11 +31,11 @@ export default class ExerciseLi extends HTMLLIElement {
     choose.addEventListener('click', () => dialog.showModal());
 
     this.typeInput = this.querySelector('input[name=type]');
-    this.typeInput.value = this.dataset.type;
+    this.typeInput.value = this.dataset.type ?? '';
 
     this.typeInput.setAttribute('style', `background-color: ${this.exercises[this.dataset.type]}`);
 
     this.durationInput = this.querySelector('input[name=duration]');
-    this.durationInput.value = Math.floor(this.dataset.duration / 1000);
+    this.durationInput.value = Math.floor((this.dataset.duration ?? 0) / 1000);
   }
 }
