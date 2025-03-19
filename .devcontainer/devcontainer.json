@@ -1,4 +1,4 @@
 {
   "image": "mcr.microsoft.com/devcontainers/universal:2",
-  "postCreateCommand": "curl -sSL https://cli.openfaas.com | sudo -E sh && . $NVM_DIR/nvm.sh && nvm install 23"
+  "postCreateCommand": "curl -sSL https://cli.openfaas.com | sudo -E sh && . $NVM_DIR/nvm.sh && nvm install 23 && nvm use 23"
 }
