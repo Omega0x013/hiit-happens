@@ -23,8 +23,8 @@ for (const id of Object.keys(localStorage)) {
 	main.append(workout);
 }
 
-for (const div of document.querySelectorAll("header div")) {
-	const [button, dialog] = div.children;
+for (const li of document.querySelectorAll("header li")) {
+	const [button, dialog] = li.children;
 	button.addEventListener("click", () => dialog.showModal());
 }
 
