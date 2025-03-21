@@ -28,8 +28,10 @@ export default class WorkoutTile extends HTMLElement {
 	}
 
 	update() {
-		const { name, exercises } = JSON.parse(localStorage.getItem(this.dataset.id));
-
+		const workouts = JSON.parse(localStorage.getItem("workouts"));
+		const workout = workouts.find(w => w.id === this.dataset.id);
+		const { name, exercises } = workout;
+		console.log(workouts)
 		this.shadowRoot.querySelector("form p > span").textContent = name;
 
 		const ms = exercises?.reduce((p, c) => p + c.duration, 0);

@@ -18,9 +18,17 @@ if ("serviceWorker" in navigator) {
 
 const main = document.querySelector("main");
 
-for (const id of Object.keys(localStorage)) {
+const workouts = JSON.parse(localStorage.getItem("workouts")) || [];
+if (workouts.length === 0) {
+	localStorage.setItem("workouts", JSON.stringify([]));
+}
+
+
+// const workouts = JSON.parse(localStorage.getItem("workouts")) || [];
+console.log(workouts);
+for (const workoutData of workouts) {
 	const workout = document.createElement("workout-tile");
-	workout.dataset.id = id;
+	workout.dataset.id = workoutData.id;
 	main.append(workout);
 }
 

@@ -51,8 +51,21 @@ export default class EditDialog extends HTMLDialogElement {
       exercises.push({ type: li.typeInput.value.trim(), duration: li.durationInput.value * 1000 });
     }
 
-    const workout = { name: this.nameInput.value, description: this.descriptionInput.value, exercises };
-    localStorage.setItem(this.dataset.id, JSON.stringify(workout));
+    const workout = { id: this.dataset.id, name: this.nameInput.value, description: this.descriptionInput.value, exercises };
+    const workouts = JSON.parse(localStorage.getItem("workouts")) || [];
+
+  // Find the index of the workout to update
+  const index = workouts.findIndex(w => w.id === this.dataset.id);
+
+  if (index !== -1) {
+    // Update the existing workout
+    workouts[index] = workout;
+  } else {
+    // Add a new workout
+    workouts.push(workout);
+  }
+    localStorage.setItem("workouts", JSON.stringify(workouts));
+    // localStorage.setItem(this.dataset.id, JSON.stringify(workout));
 
     /**
      * Dispatch an event to ourselves which bubbles up to the tile,

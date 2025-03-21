@@ -33,8 +33,12 @@ export default class UploadDialog extends HTMLDialogElement {
       reader.readAsText(file);
     });
 
-    this.dataset.id = crypto.randomUUID();
-    localStorage.setItem(this.dataset.id, result);
+    const workouts = JSON.parse(localStorage.getItem("workouts")) || [];
+    const updatedWorkouts = workouts.concat(JSON.parse(result));
+    localStorage.setItem("workouts", JSON.stringify(updatedWorkouts));
+
+    this.dataset.id = updatedWorkouts[0].id;
+  
 
     const event = new Event('update', { bubbles: true });
     this.dispatchEvent(event);
