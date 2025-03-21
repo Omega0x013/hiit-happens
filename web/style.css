@@ -15,11 +15,6 @@ progress {
     -moz-appearance: none;
     appearance: none;
 
-    &::backdrop {
-        background-color: var(--workout-color);
-        opacity: 10%;
-    }
-
     &::before {
         position: absolute;
         content: var(--progress-text);
@@ -32,6 +27,39 @@ progress {
 
     &::-webkit-progress-value {
         background-color: var(--workout-color);
+    }
+}
+
+::backdrop {
+    background-color: var(--workout-color);
+    opacity: 10%;
+}
+
+/* input[type=button],
+input[type=submit],
+button {
+    padding: .5em;
+    margin: .1em;
+} */
+
+dialog[is=edit-dialog] ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+
+    display: flex;
+    flex-direction: column;
+
+    li {
+        display: flex;
+        flex-direction: row;
+        flex: 0 .7 min-content;
+        margin: .2em;
+    }
+
+    input {
+        padding: .2em 0 .2em 0;
+        margin: 0;
     }
 }
 
