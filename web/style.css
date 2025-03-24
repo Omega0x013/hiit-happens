@@ -35,34 +35,6 @@ progress {
     opacity: 10%;
 }
 
-/* input[type=button],
-input[type=submit],
-button {
-    padding: .5em;
-    margin: .1em;
-} */
-
-dialog[is=edit-dialog] ul {
-    padding: 0;
-    margin: 0;
-    list-style: none;
-
-    display: flex;
-    flex-direction: column;
-
-    li {
-        display: flex;
-        flex-direction: row;
-        flex: 0 .7 min-content;
-        margin: .2em;
-    }
-
-    input {
-        padding: .2em 0 .2em 0;
-        margin: 0;
-    }
-}
-
 dialog[is=timer-dialog] input[name=activity] {
     font-size: 1.5em;
 }
@@ -72,10 +44,19 @@ form {
     flex-direction: column;
 }
 
-.hidden {
-    transition: max-height 0.5s;
-    max-height: 0;
+workout-tile section {
     overflow: hidden;
+    /* Ensures content doesn't spill out during animation */
+    transform-origin: top;
+    /* Sets the scaling point to the top */
+    transition: transform 0.1s ease, opacity 0.1s ease;
+    transform: scaleY(1); /* Expands the element */
+    opacity: 1; /* Makes the element visible */
+}
+
+.hidden {
+    transform: scaleY(0); /* Collapses the element */
+    opacity: 0; /* Makes the element invisible */
 }
 
 ul,
@@ -93,6 +74,7 @@ ul {
 
 menu {
     flex-flow: row wrap;
+
     li {
         padding: .1em;
     }
