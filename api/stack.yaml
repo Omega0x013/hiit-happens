@@ -3,9 +3,16 @@ provider:
   name: openfaas
   gateway: http://127.0.0.1:8080
 functions:
-
   auth:
     lang: node23
     handler: ./auth
     image: auth:latest
+    environment_file:
+      - secret.yaml
+  workout:
+    lang: node23
+    handler: ./workout
+    image: workout:latest
+    environment_file:
+      - secret.yaml
 

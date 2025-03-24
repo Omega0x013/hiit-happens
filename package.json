@@ -7,7 +7,6 @@
     "install-api": "cd api && install.bat",
     "start-api": "cd api && run.bat",
     "refresh-api": "cd api && install.bat && run.bat"
-
   },
   "repository": {
     "type": "git",
@@ -15,5 +14,8 @@
   },
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "@types/jsonwebtoken": "^9.0.9"
+  }
 }
