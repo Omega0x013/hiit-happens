@@ -23,6 +23,7 @@ export default class WorkoutTile extends HTMLElement {
 		this.section = this.querySelector('section');
 
 		const [runButton, renameButton, deleteButton] = this.querySelectorAll('menu button');
+		this.downloadButton = this.querySelector('menu a');
 		const [timerDialog, deleteDialog] = this.dialogs;
 		const addButton = this.querySelector('ul + button');
 
@@ -48,6 +49,7 @@ export default class WorkoutTile extends HTMLElement {
 
 		// the content should be initialised here rather than through this function
 		this.update();
+		this.refreshDownload();
 	}
 
 	// synchronise every time anything changes.
@@ -61,6 +63,8 @@ export default class WorkoutTile extends HTMLElement {
 
 		const workout = { name: this.heading.textContent, exercises };
     localStorage.setItem(this.dataset.id, JSON.stringify(workout));
+
+		this.refreshDownload();
 
 		// TODO: remove this.update from WorkoutTile.change
 		this.update();
@@ -91,6 +95,12 @@ export default class WorkoutTile extends HTMLElement {
 	toggleDropdown() {
 		this.section.classList.toggle("hidden");
 		this.collapseButton.textContent = this.section.classList.contains("hidden") ? "Expand" : "Collapse";
+	}
+
+	refreshDownload() {
+		// Keep the download link up to date
+		this.downloadButton.download = `${this.heading.textContent}.json`;
+		this.downloadButton.href = `data:text/plain;charset=utf-8,${encodeURIComponent(localStorage.getItem(this.dataset.id))}`;
 	}
 
 	static fromID(id) {

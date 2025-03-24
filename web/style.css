@@ -136,6 +136,10 @@ label > input[type=file] {
   vertical-align: middle;
   white-space: nowrap;
   word-wrap: break-word;
+
+  &:is(a) {
+    text-decoration: none;
+  }
 }
 
 :is(button, .button, input[type=button], input[type=submit]):hover {
