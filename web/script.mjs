@@ -2,7 +2,6 @@ import ExerciseLi from "./components/ExerciseLi.mjs";
 import TimerDialog from "./components/TimerDialog.mjs";
 import WorkoutTile from "./components/WorkoutTile.mjs";
 
-// customElements.define("edit-dialog", EditDialog, { extends: "dialog" });
 customElements.define("exercise-li", ExerciseLi, { extends: "li" });
 customElements.define("timer-dialog", TimerDialog, { extends: "dialog" });
 customElements.define("workout-tile", WorkoutTile);
@@ -26,11 +25,6 @@ header.querySelector('input[type=file]').addEventListener('change', async event 
 
 for (const id of Object.keys(localStorage)) {
 	main.append(WorkoutTile.fromID(id));
-}
-
-for (const li of document.querySelectorAll("header li")) {
-	const [button, dialog] = li.children;
-	button.addEventListener("click", () => dialog.showModal());
 }
 
 document.querySelector("#new-workout-button").addEventListener("click", () => main.append(WorkoutTile.fromID(undefined)));
