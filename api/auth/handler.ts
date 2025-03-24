@@ -1,11 +1,12 @@
 import { FunctionContext, FunctionEvent } from './runtime.ts';
 import { google } from 'googleapis';
+import fs from 'fs';
 import jwt from 'jsonwebtoken';
 import z from 'zod';
 
-const googleSecret = process.env.GOOGLE_SECRET;
-const googleId = process.env.GOOGLE_ID;
-const jwtSecret = process.env.JWT_SECRET;
+const googleSecret = fs.readFileSync('/var/openfaas/secrets/google_secret','utf-8');
+const googleId = fs.readFileSync('/var/openfaas/secrets/google_id','utf-8');
+const jwtSecret = fs.readFileSync('/var/openfaas/secrets/jwt','utf-8');
 
 if(googleSecret == null){
   throw new Error('Missing ENV variable: "GOOGLE_SECRET".');
@@ -51,7 +52,6 @@ export default async function handler(
   context: FunctionContext, 
   callback: (err: unknown, succ?: unknown|undefined) => void
 ): Promise<unknown> {
-  console.log('PATh;', event.path)
   if(event.path === '/auth'){
     return oAuth2Client.generateAuthUrl({
       include_granted_scopes: true,
