@@ -7,12 +7,15 @@ functions:
     lang: node23
     handler: ./auth
     image: auth:latest
-    environment_file:
-      - secret.yaml
+    secrets:
+      - google_id
+      - jwt
+      - google_secret
+
   workout:
     lang: node23
     handler: ./workout
     image: workout:latest
-    environment_file:
-      - secret.yaml
-
+    secrets:
+      - jwt
+      - psql
