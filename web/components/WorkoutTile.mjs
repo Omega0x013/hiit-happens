@@ -92,4 +92,27 @@ export default class WorkoutTile extends HTMLElement {
 		this.section.classList.toggle("hidden");
 		this.collapseButton.textContent = this.section.classList.contains("hidden") ? "Expand" : "Collapse";
 	}
+
+	static fromID(id) {
+		const workout = document.createElement('workout-tile');
+		workout.dataset.id = id;
+		return workout;
+	}
+
+	static fromJSON(json) {
+		const id = crypto.randomUUID();
+		// Blindly dump the json into localStorage... this can't go wrong right?
+		localStorage.setItem(id, json);
+		return WorkoutTile.fromID(id);
+	}
+
+	static async fromFile(file) {
+		const reader = new FileReader();
+		// Await the target file being read.
+    const { target: { result } } = await new Promise(resolve => {
+      reader.addEventListener('load', resolve);
+      reader.readAsText(file);
+    });
+		return WorkoutTile.fromJSON(result);
+	}
 }

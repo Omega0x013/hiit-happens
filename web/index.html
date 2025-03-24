@@ -20,8 +20,12 @@
             <dialog is="download-dialog"></dialog>
         </li>
         <li>
-            <input type="button" value="Upload Workouts">
-            <dialog is="upload-dialog" id="upload-dialog"></dialog>
+            <!-- <input type="button" value="Upload Workouts">
+            <dialog is="upload-dialog" id="upload-dialog"></dialog> -->
+            <label class="button">
+                Import Workout
+                <input type="file" accept="application/json">
+            </label>
         </li>
     </menu>
 </header>
@@ -86,16 +90,6 @@
     <form method=dialog>
         <menu>
             <li><input type="submit" name="no" value="Close"></li>
-        </menu>
-    </form>
-</template>
-
-<template id="upload-dialog-template">
-    <form method=dialog>
-        <input type="file" name="upload" accept="application/json">
-        <menu>
-            <li><input type="submit" name="yes" value="Save"></li>
-            <li><input type="submit" name="no" value="Cancel"></li>
         </menu>
     </form>
 </template>
