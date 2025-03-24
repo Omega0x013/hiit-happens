@@ -11,20 +11,19 @@
 
 <header>
     <h1>Your Workouts</h1>
-    <fieldset>
-        <div>
+    <menu>
+        <li>
             <input type="button" id="new-workout-button" value="New Workout">
-            <dialog is="edit-dialog" id="new-workout-dialog"></dialog>
-        </div>
-        <div>
+        </li>
+        <li>
             <input type="button" value="Download Workouts">
             <dialog is="download-dialog"></dialog>
-        </div>
-        <div>
+        </li>
+        <li>
             <input type="button" value="Upload Workouts">
             <dialog is="upload-dialog" id="upload-dialog"></dialog>
-        </div>
-    </fieldset>
+        </li>
+    </menu>
 </header>
 
 <main></main>
@@ -50,78 +49,53 @@
         <span>NAME</span>
         <input type="text" name="activity" disabled value="ACTIVITY">
         <progress max="1"></progress>
-        <fieldset>
-            <input type="button" name="yes" value="Play/Pause">
-            <input type="submit" name="no" value="Close">
-        </fieldset>
+        <menu>
+            <li><input type="button" name="yes" value="Play/Pause"></li>
+            <li><input type="submit" name="no" value="Close"></li>
+        </menu>
     </form>
-</template>
-
-<template id="edit-dialog-template">
-    <form method="dialog" id="edit-dialog-form">
-        <label>
-            Name:
-            <input type="text" name="name" required placeholder="Workout Name" autocomplete="off">
-        </label>
-        <label>
-            Description:
-            <input type="text" name="description" required placeholder="Workout Description">
-        </label>
-    </form>
-    <hr>
-    <ul></ul>
-    <input type="button" name="add" value="Add Exercise">
-    <hr>
-    <fieldset>
-        <input type="submit" name="yes" form="edit-dialog-form" value="Save">
-        <input type="submit" name="no" form="edit-dialog-form" value="Cancel" formnovalidate>
-    </fieldset>
 </template>
 
 <template id="workout-tile-template">
-    <!-- Include the stylesheet inside the shadow dom -->
-    <link rel=stylesheet href="style.css">
-    <h2></h2>
-    <fieldset>
-        <div>
-            <input type="button" value="Run">
-            <dialog is="timer-dialog" paused="true"></dialog>
-        </div>
-        <div>
-            <input type="button" value="Edit">
-            <dialog is="edit-dialog"></dialog>
-        </div>
-        <div>
-            <input type="button" value="Delete">
-            <dialog id="delete-dialog">
-                <form method=dialog>
-                    <p>Delete "<span>NAME</span>"?</p>
-                    <fieldset>
-                        <input type="submit" name="yes" value="Confirm">
-                        <input type="submit" name="no" value="Cancel">
-                    </fieldset>
-                </form>
-            </dialog>
-        </div>
-    </fieldset>
+    <h2><span></span> - <span></span> <button>Expand</button></h2>
+    <section class="hidden">
+        <menu>
+            <li><button>Run</button></li>
+            <li><button>Rename</button></li>
+            <li><button>Delete</button></li>
+        </menu>
+        <hr>
+        <ul></ul>
+        <button>Add Exercise</button>
+    </section>
+    <dialog is="timer-dialog" paused="true"></dialog>
+    <dialog id="delete-dialog">
+        <form method=dialog>
+            <p>Are you sure?</p>
+            <menu>
+                <li><input type="submit" name="yes" value="Confirm"></li>
+                <li><input type="submit" name="no" value="Cancel"></li>
+            </menu>
+        </form>
+    </dialog>
 </template>
 
 <template id="download-dialog-template">
     <h1>Download Workouts</h1>
     <ul></ul>
     <form method=dialog>
-        <fieldset>
-            <input type="submit" name="no" value="Close">
-        </fieldset>
+        <menu>
+            <li><input type="submit" name="no" value="Close"></li>
+        </menu>
     </form>
 </template>
 
 <template id="upload-dialog-template">
     <form method=dialog>
         <input type="file" name="upload" accept="application/json">
-        <fieldset>
-            <input type="submit" name="yes" value="Save">
-            <input type="submit" name="no" value="Cancel">
-        </fieldset>
+        <menu>
+            <li><input type="submit" name="yes" value="Save"></li>
+            <li><input type="submit" name="no" value="Cancel"></li>
+        </menu>
     </form>
 </template>

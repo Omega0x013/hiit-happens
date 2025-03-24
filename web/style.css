@@ -7,11 +7,6 @@
     align-items: center;
 }
 
-::backdrop {
-    background-color: var(--workout-color);
-    opacity: 10%;
-}
-
 progress {
     max-width: 100%;
     width: 100%;
@@ -19,56 +14,57 @@ progress {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+
+    &::before {
+        position: absolute;
+        content: var(--progress-text);
+        display: flex;
+    }
+
+    &::-moz-progress-bar {
+        background-color: var(--workout-color);
+    }
+
+    &::-webkit-progress-value {
+        background-color: var(--workout-color);
+    }
 }
 
-progress::before {
-    position: absolute;
-    content: var(--progress-text);
-    display: flex;
-}
-
-::-moz-progress-bar {
+::backdrop {
     background-color: var(--workout-color);
+    opacity: 10%;
 }
 
-::-webkit-progress-value {
-    background-color: var(--workout-color);
-}
-
-input[type=button],
+/* input[type=button],
 input[type=submit],
 button {
     padding: .5em;
     margin: .1em;
-}
+} */
 
-dialog[is=edit-dialog] {
-    ul {
-        padding: 0;
-        margin: 0;
-        list-style: none;
+dialog[is=edit-dialog] ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
 
+    display: flex;
+    flex-direction: column;
+
+    li {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
+        flex: 0 .7 min-content;
+        margin: .2em;
+    }
 
-        li {
-            display: flex;
-            flex-direction: row;
-            flex: 0 .7 min-content;
-            margin: .2em;
-        }
-
-        input {
-            padding: .2em 0 .2em 0;
-            margin: 0;
-        }
+    input {
+        padding: .2em 0 .2em 0;
+        margin: 0;
     }
 }
 
-dialog[is=timer-dialog] {
-    input[name=activity] {
-        font-size: 1.5em;
-    }
+dialog[is=timer-dialog] input[name=activity] {
+    font-size: 1.5em;
 }
 
 form {
@@ -76,15 +72,35 @@ form {
     flex-direction: column;
 }
 
-fieldset {
-    display: flex;
-    flex-direction: row;
-    border: none;
-    padding: 0;
-    margin: 0;
+.hidden {
+    transition: max-height 0.5s;
+    max-height: 0;
+    overflow: hidden;
 }
 
-h1,
-h2 {
-    margin-bottom: 0;
+ul,
+menu {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+}
+
+ul {
+    flex-flow: column nowrap;
+    padding-bottom: .5em;
+}
+
+menu {
+    flex-flow: row wrap;
+    li {
+        padding: .1em;
+    }
+}
+
+[contenteditable] {
+    border: 1px grey solid;
+    border-radius: .25em;
+    padding: .1em;
+    background-color: ghostwhite;
 }
