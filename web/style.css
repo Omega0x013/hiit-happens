@@ -1,6 +1,6 @@
 :root {
     --workout-color: black;
-    --progress-text: 'TIME';
+    --progress-text: '';
     font-family: sans-serif;
     display: flex;
     flex-direction: column;
@@ -28,11 +28,6 @@ progress {
     &::-webkit-progress-value {
         background-color: var(--workout-color);
     }
-}
-
-::backdrop {
-    background-color: var(--workout-color);
-    opacity: 10%;
 }
 
 /* input[type=button],

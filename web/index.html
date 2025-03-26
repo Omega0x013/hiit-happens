@@ -59,8 +59,12 @@
 <template id="workout-tile-template">
     <h2><span></span> - <span></span> <button>Expand</button></h2>
     <section class="hidden">
+        <form method="dialog" class="flex-column">
+            <input type="text" name="activity" disabled value="ACTIVITY">
+            <progress max="1"></progress>
+        </form>
         <menu>
-            <li><button>Run</button></li>
+            <li><input type="button" name="yes" value="Play/Pause" id="timerButton"></li>
             <li><button>Rename</button></li>
             <li><button>Delete</button></li>
         </menu>
